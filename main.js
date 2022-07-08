@@ -25,16 +25,16 @@ function pokemonTypes (arrayList) {
 
 
 ////////////  Map To DOM Using API Data  ///////////////
-const mapToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})">
+const mapToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
     <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 185px; ">
     <div><h7>Name: <span>${pokemonName(pokemon.name)}</span></h7></div>
-    <div><h7>Type(s): <span></span>${pokemonTypes(pokemon.types)}</h7></div>
+    <div><h7>Type: <span></span>${pokemonTypes(pokemon.types)}</h7></div>
     </div>`
 
-const mapToDOM2 = (pokemon) => `<div data-id="${pokemon.id}">
-    <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 450px;">
+const mapToDOM2 = (pokemon) => `<div data-id="${pokemon.id}" style="cursor: pointer">
+    <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 500px;">
     <div class="d-flex justify-content-center"><h4>Name: <span>${pokemonName(pokemon.name)}</span></h4></div>
-    <div class="d-flex justify-content-center"><h4>Type(s): <span></span>${pokemonTypes(pokemon.types)}</h4></div>
+    <div class="d-flex justify-content-center"><h4>Type: <span></span>${pokemonTypes(pokemon.types)}</h4></div>
     </div>`
 
 
