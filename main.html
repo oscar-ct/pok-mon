@@ -5,14 +5,15 @@
     <title>Title</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 <body>
 
-<div class="container">
+<div class="container pt-5">
 
     <div class="d-flex">
         <div class="w-25">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" style="height: 100px">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" style="height: 100px; cursor: pointer" onclick="windowReload()">
         </div>
         <div class="w-75  mt-4">
                 <div class="input-group rounded">
@@ -23,12 +24,19 @@
     </div>
 
     <div class="container d-flex justify-content-center my-3">
-        <button id="viewAllPokemon" class="btn btn-dark">View All</button>
+        <button id="viewAllPokemon" class="btn btn-dark mx-2">View All</button>
+        <button id="viewPokemon2000" class="btn btn-dark mx-2">Pokemon 2000</button>
     </div>
 
-    <div class="d-flex flex-wrap" id="output"></div>
+    <div class="d-flex flex-wrap justify-content-center" id="output"></div>
+    <div class="pt-5 mt-5 d-flex justify-content-center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" style="height: 400px; opacity: 30%" id="pokemon-bg">
+    </div>
 
 </div>
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
