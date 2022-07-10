@@ -23,6 +23,13 @@ function pokemonTypes (arrayList) {
     }
 }
 
+function pokemonHeight (height) {
+    let inches = (height / 2.54).toFixed(0);
+    let feet = Math.floor(inches / 12);
+    inches %= 12;
+    return feet + "'" + ' ' + inches + '"'
+}
+
 
 ////////////  Map To DOM Using API Data  ///////////////
 const mapToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
@@ -34,7 +41,9 @@ const mapToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style
 const mapToDOM2 = (pokemon) => `<div data-id="${pokemon.id}" style="cursor: pointer">
     <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 500px;">
     <div class="d-flex justify-content-center"><h4>Name: <span>${pokemonName(pokemon.name)}</span></h4></div>
-    <div class="d-flex justify-content-center"><h4>Type: <span></span>${pokemonTypes(pokemon.types)}</h4></div>
+    <div class="d-flex justify-content-center"><h4>Type: <span>${pokemonTypes(pokemon.types)}</span></h4></div>
+     <div class="d-flex justify-content-center"><h4>Height: <span>${pokemonHeight(pokemon.height * 10)}</span></h4></div>
+      <div class="d-flex justify-content-center"><h4>Weight: <span>${(pokemon.weight/4.536).toFixed(2) + "lbs"}</span></h4></div>
     </div>`
 
 
@@ -49,6 +58,7 @@ function viewPokemon (pokemon) {
 function searchPokemon (pokemon) {
     const urls = {"url": "https://pokeapi.co/api/v2/pokemon/" + pokemon, "method": "GET"}
     $.ajax(urls).then(function (data) {
+        console.log(data)
         $('#output').html(mapToDOM2(data))
     });
 }
@@ -66,10 +76,25 @@ $('#searchPokemon').click(function (e) {
 //////////  View All Pokemon Button  /////////
 $('#viewAllPokemon').click(function () {
     clearPokemon();
-    viewAllPokemon();
+    viewAllPokemon(0,151);
 });
-function viewAllPokemon () {
-    for (let i = 0; i < 151; i++) {
+
+$('#viewAllPokemon2').click(function () {
+    clearPokemon();
+    viewAllPokemon(152, 300);
+});
+
+$('#viewAllPokemon3').click(function () {
+    clearPokemon();
+    viewAllPokemon(301, 450);
+});
+$('#viewAllPokemon4').click(function () {
+    clearPokemon();
+    viewAllPokemon(451, 600);
+});
+
+function viewAllPokemon (pokemonId1, pokemonId2) {
+    for (let i = pokemonId1; i < pokemonId2; i++) {
         viewPokemon(i);
     }
 }
