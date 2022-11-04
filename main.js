@@ -1,108 +1,117 @@
 
-////////////   Helper Functions   ///////////
-function clearPokemon() {
-    $('#output').html('')
+
+const pokemonName = (name) => {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+const windowReload = () => {
+    location.reload();
 }
 
-function pokemonName (name) {
-    return name.charAt(0).toUpperCase() + name.slice(1)
-}
-
-function windowReload() {
-    location.reload()
-}
-
-
-function pokemonTypes (arrayList) {
-    if (arrayList.length <= 1) {
-        return arrayList[0].type.name.charAt(0).toUpperCase() + arrayList[0].type.name.slice(1)
-    } else if (arrayList.length === 2) {
-        return arrayList[0].type.name.charAt(0).toUpperCase() + arrayList[0].type.name.slice(1) + ', ' + arrayList[1].type.name.charAt(0).toUpperCase() + arrayList[1].type.name.slice(1)
+const pokemonTypes = (arr) => {
+    if (arr.length <= 1) {
+        return arr[0].type.name.charAt(0).toUpperCase() + arr[0].type.name.slice(1);
+    } else if (arr.length === 2) {
+        return arr[0].type.name.charAt(0).toUpperCase() + arr[0].type.name.slice(1) + ', ' + arr[1].type.name.charAt(0).toUpperCase() + arr[1].type.name.slice(1);
     } else {
-        return arrayList[0].type.name.charAt(0).toUpperCase() + arrayList[0].type.name.slice(1) + ', ' + arrayList[1].type.name.charAt(0).toUpperCase() + arrayList[1].type.name.slice(1) + ', ' + arrayList[2].type.name.charAt(0).toUpperCase() + arrayList[2].type.name.slice(1)
+        return arr[0].type.name.charAt(0).toUpperCase() + arr[0].type.name.slice(1) + ', ' + arr[1].type.name.charAt(0).toUpperCase() + arr[1].type.name.slice(1) + ', ' + arr[2].type.name.charAt(0).toUpperCase() + arr[2].type.name.slice(1);
     }
 }
-
-function pokemonHeight (height) {
+const pokemonHeight = (height) => {
     let inches = (height / 2.54).toFixed(0);
     let feet = Math.floor(inches / 12);
     inches %= 12;
-    return feet + "'" + ' ' + inches + '"'
+    return `${feet}' ${inches}"`
 }
 
 
-////////////  Map To DOM Using API Data  ///////////////
-const mapToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
+const mapApiPokemonListToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
     <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 185px; ">
     <div><h7>Name: <span>${pokemonName(pokemon.name)}</span></h7></div>
     <div><h7>Type: <span></span>${pokemonTypes(pokemon.types)}</h7></div>
-    </div>`
+    </div>`;
 
-const mapToDOM2 = (pokemon) => `<div data-id="${pokemon.id}" style="cursor: pointer">
-    <img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 500px;">
+const mapApiPokemonToDOM = (pokemon) => `<div data-id="${pokemon.id}" style="cursor: pointer">
+    <img src="${pokemon.sprites.other.dream_world["front_default"]}" style="height: 500px;">
     <div class="d-flex justify-content-center"><h4>Name: <span>${pokemonName(pokemon.name)}</span></h4></div>
     <div class="d-flex justify-content-center"><h4>Type: <span>${pokemonTypes(pokemon.types)}</span></h4></div>
      <div class="d-flex justify-content-center"><h4>Height: <span>${pokemonHeight(pokemon.height * 10)}</span></h4></div>
       <div class="d-flex justify-content-center"><h4>Weight: <span>${(pokemon.weight/4.536).toFixed(2) + "lbs"}</span></h4></div>
-    </div>`
+    </div>`;
+const mapLocalPokemonToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
+    <img src="${pokemon.sprite}" style="height: 185px; ">
+    <div><h7>Name: <span>${pokemonName(pokemon.name)}</span></h7></div>
+    <div><h7>Type: <span></span>${pokemon.type}</h7></div>
+    </div>`;
 
 
-///////////   API request here  //////////////
-function viewPokemon (pokemon) {
-    const urls = {"url": "https://pokeapi.co/api/v2/pokemon/" + pokemon, "method": "GET"}
-    $.ajax(urls).then(function (data) {
-        $('#output').append(mapToDOM(data))
+let localStoredPokemon = '';
+
+const viewPokemon = (pokemon, pokemon2) => {
+    let promises = [];
+    for (let i = pokemon; i < pokemon2; i++) {
+        promises.push(fetch("https://pokeapi.co/api/v2/pokemon/" + i).then(resp => resp.json()));
+    }
+    Promise.all(promises).then(function (data) {
+        localStoredPokemon = [data.map(function (data) {
+            return {
+                id: data.id,
+                name: data.name,
+                sprite: data.sprites.other["official-artwork"].front_default,
+                type: pokemonTypes(data.types)
+            }
+        })];
+        $('#output').html(data.map(mapApiPokemonListToDOM));
+    });
+    console.log(localStoredPokemon);
+}
+
+
+const searchPokemon = (pokemon) => {
+    $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
+        $('#output').html(mapApiPokemonToDOM(data))
     });
 }
 
-function searchPokemon (pokemon) {
-    const urls = {"url": "https://pokeapi.co/api/v2/pokemon/" + pokemon, "method": "GET"}
-    $.ajax(urls).then(function (data) {
-        console.log(data)
-        $('#output').html(mapToDOM2(data))
-    });
-}
 
-
-///////////  Search Bar Functionality  //////////
 $('#searchPokemon').click(function (e) {
     e.preventDefault();
-    clearPokemon();
-    const pokemon = $('#pokemon').val()
+    const pokemon = $('#pokemon').val();
     searchPokemon(pokemon);
 });
 
+$('#pokemon').keyup(function (e) {
+    console.log(localStoredPokemon)
+    const searchTerm = $('#pokemon').val();
+    console.log(searchTerm);
+    const searchResults = localStoredPokemon[0].filter(function (x) {
+        return x.name.includes(searchTerm);
+    });
+    console.log(searchResults);
+    $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+});
 
-//////////  View All Pokemon Button  /////////
+
+
 $('#viewAllPokemon').click(function () {
-    clearPokemon();
-    viewAllPokemon(0,151);
+    viewPokemon(1,151);
 });
 
 $('#viewAllPokemon2').click(function () {
-    clearPokemon();
-    viewAllPokemon(152, 300);
+    viewPokemon(152, 300);
 });
 
 $('#viewAllPokemon3').click(function () {
-    clearPokemon();
-    viewAllPokemon(301, 450);
+    viewPokemon(301, 450);
 });
 $('#viewAllPokemon4').click(function () {
-    clearPokemon();
-    viewAllPokemon(451, 600);
+    viewPokemon(451, 600);
 });
 
-function viewAllPokemon (pokemonId1, pokemonId2) {
-    for (let i = pokemonId1; i < pokemonId2; i++) {
-        viewPokemon(i);
-    }
-}
 
 
-//////////  View Pokemon 2000 Button  /////////
+
+
 $('#viewPokemon2000').click(function () {
-    clearPokemon();
     viewAllPokemon2000();
 });
 function viewAllPokemon2000 () {
@@ -111,31 +120,5 @@ function viewAllPokemon2000 () {
     }
 }
 const pokemon2000 = [
-    'Pikachu', 'Meowth', 'Togepi', 'Bulbasaur', 'Charizard', 'Squirtle', 'Lapras', 'Snorlax', 'Goldeen', 'Staryu', 'Psyduck', 'Venonat', 'Marill', 'Scyther', 'Arbok', 'Weezing', 'Mr-Mime', 'Zapdos', 'Articuno', 'Moltres', 'Lugia', 'Slowking', 'Slowpoke', 'Slowbro', 'Magikarp', 'Pidgey', 'Pidgeotto', 'Pidgeot', 'Diglett', 'Paras', 'Parasect', 'Seel', 'Dewgong', 'Wartortle', 'Blastoise', 'Ekans', 'Arbok', 'Eevee', 'Vaporeon', 'Lickitung', 'Tentacool', 'Tentacruel', 'Golduck', 'Horsea', 'Seadra', 'Seaking', 'Gyarados', 'Starmie', 'Venomoth', 'Spearow', 'Fearow', 'Butterfree', 'Zubat', 'Golbat', 'Raichu', 'Rhyhorn', 'Rhydon', 'Onix', 'Cubone', 'Exeggutor', 'Machop', 'Machoke', 'Machamp', 'Hitmonlee', 'Hitmonchan', 'Primeape', 'Tauros', 'Voltorb', 'Geodude', 'Golem', 'Nidoran-m', 'Nidoran-f', 'Nidorino', 'Nidoking', 'Nidorina', 'Nidoqueen', 'Vulpix', 'Ninetales', 'Rapidash', 'Doduo', 'Dodrio', 'Magnemite', 'Magneton', 'Ivysaur', 'Venusaur', 'Sandshrew', 'Sandslash', 'Kangaskhan', 'Rattata', 'Raticate', 'Pinsir', 'Electabuzz', 'Alakazam', 'Wigglytuff', 'Tangela', 'Oddish', 'Gloom', 'Vileplume', 'Krabby', 'Kingler', 'Clefairy', 'Drowzee', 'Hypno', 'Shellder', 'Cloyster', 'Poliwag', 'Poliwhirl', 'Poliwrath', 'Beedrill', 'Chansey', 'Growlithe', 'Bellsprout', 'Weepinbell', 'Victreebel']
+    'Pikachu', 'Meowth', 'Togepi', 'Bulbasaur', 'Charizard', 'Squirtle', 'Lapras', 'Snorlax', 'Goldeen', 'Staryu', 'Psyduck', 'Venonat', 'Marill', 'Scyther', 'Arbok', 'Weezing', 'Mr-Mime', 'Zapdos', 'Articuno', 'Moltres', 'Lugia', 'Slowking', 'Slowpoke', 'Slowbro', 'Magikarp', 'Pidgey', 'Pidgeotto', 'Pidgeot', 'Diglett', 'Paras', 'Parasect', 'Seel', 'Dewgong', 'Wartortle', 'Blastoise', 'Ekans', 'Arbok', 'Eevee', 'Vaporeon', 'Lickitung', 'Tentacool', 'Tentacruel', 'Golduck', 'Horsea', 'Seadra', 'Seaking', 'Gyarados', 'Starmie', 'Venomoth', 'Spearow', 'Fearow', 'Butterfree', 'Zubat', 'Golbat', 'Raichu', 'Rhyhorn', 'Rhydon', 'Onix', 'Cubone', 'Exeggutor', 'Machop', 'Machoke', 'Machamp', 'Hitmonlee', 'Hitmonchan', 'Primeape', 'Tauros', 'Voltorb', 'Geodude', 'Golem', 'Nidoran-m', 'Nidoran-f', 'Nidorino', 'Nidoking', 'Nidorina', 'Nidoqueen', 'Vulpix', 'Ninetales', 'Rapidash', 'Doduo', 'Dodrio', 'Magnemite', 'Magneton', 'Ivysaur', 'Venusaur', 'Sandshrew', 'Sandslash', 'Kangaskhan', 'Rattata', 'Raticate', 'Pinsir', 'Electabuzz', 'Alakazam', 'Wigglytuff', 'Tangela', 'Oddish', 'Gloom', 'Vileplume', 'Krabby', 'Kingler', 'Clefairy', 'Drowzee', 'Hypno', 'Shellder', 'Cloyster', 'Poliwag', 'Poliwhirl', 'Poliwrath', 'Beedrill', 'Chansey', 'Growlithe', 'Bellsprout', 'Weepinbell', 'Victreebel'];
 
-
-var cars = [{name: 'Audi'}, {name: 'BMW'}, {name: 'Ferrari'}, {name: 'Mercedes'}, {name: 'Maserati'}];
-
-cars.forEach(function (car) {
-    setTimeout(function () {
-        console.log(car);
-    }, 5000);
-});
-
-const BMW = cars.filter(function (car) {
-    return car.name === "BMW"
-});
-
-console.log(BMW)
-
-const mapCarToOutput = (data) => `<div>
-    <h3>${data.name}</h3>
-    </div>`
-
-function cycleThroughArray () {
-    var item = [cars[Math.floor(Math.random() * cars.length)]];
-    const randomCar = item.map(mapCarToOutput)
-    $('#output').html(randomCar);
-}
-
-setInterval(cycleThroughArray, 5000);
