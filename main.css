@@ -3,12 +3,12 @@
     border-radius: 6px;
     height: 185px;
 }
-#sm-poke-ball-container-ball {
-    display: none;
-}
-#sm-poke-ball {
-    display: none;
-}
+/*#sm-poke-ball-container-ball {*/
+/*    display: none;*/
+/*}*/
+/*#sm-poke-ball {*/
+/*    display: none;*/
+/*}*/
 
 #cssContainer {
     background-color: white;
@@ -157,6 +157,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    min-height: 400px;
 }
 .output-container {
     border-top: solid black 1px;
@@ -447,7 +448,7 @@ body {
         width: 100%;
         justify-content: center;
         align-items: center;
-        margin: 0px 0 25px 0;
+        margin: 30px 0 25px 0;
     }
     .search-box {
         width: 100%;
@@ -456,6 +457,7 @@ body {
     }
     .list-choice {
         width: 40%;
+        font-size: 14px;
     }
     .list-choice-container {
         width: 100%;
@@ -468,15 +470,18 @@ body {
         width: 75%;
         text-align: center;
     }
-    #sm-poke-ball-container {
-        display: revert;
-        width: 100%;
-    }
-    #sm-poke-ball {
-        display: revert;
-        height: 40px;
-        margin: 0 0 0 15px;
-        padding: 0;
+    /*#sm-poke-ball-container {*/
+    /*    display: revert;*/
+    /*    width: 100%;*/
+    /*}*/
+    /*#sm-poke-ball {*/
+    /*    display: revert;*/
+    /*    height: 40px;*/
+    /*    margin: 0 0 0 15px;*/
+    /*    padding: 0;*/
+    /*}*/
+    .sm-img {
+        height: 150px;
     }
 
 
