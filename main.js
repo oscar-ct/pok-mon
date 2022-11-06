@@ -21,7 +21,7 @@ $(document).ready(function() {
 // });
 
 const activatePokeBall = () => {
-    if (!$('#pokemon').hasClass('active')) {
+    if (!$('#pokemon').hasClass('active') && $(window).width() > 880) {
         $('.poke-btn').addClass('animate');
         $('.input').addClass('active');
         $('#poke-ball').removeClass('bounce');
@@ -148,7 +148,7 @@ $('#searchPokemon').click(function (e) {
 
 
 
-$('#pokemon').keyup(function (e) {
+$('#pokemon').on('input', function (e) {
     // $('.gen:checked').prop('checked', false);
     console.log(localStoredPokemon)
     const searchTerm = $('#pokemon').val();

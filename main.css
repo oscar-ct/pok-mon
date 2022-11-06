@@ -435,8 +435,9 @@ body {
     .input {
         position: revert;
         width: 75%;
-
+        text-align: center;
     }
+
 
 
 
