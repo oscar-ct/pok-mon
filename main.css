@@ -59,6 +59,7 @@ body {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 .input {
     position: absolute;
@@ -428,6 +429,15 @@ body {
     .list-choice-container {
         width: 100%;
     }
+    .poke-btn {
+        display: none;
+    }
+    .input {
+        position: revert;
+        width: 75%;
+
+    }
+
 
 
 
