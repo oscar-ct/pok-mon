@@ -125,9 +125,9 @@ body {
     justify-content: center;
     margin: 0 5px 0 5px;
     padding: 0 0 50px 0;
-    overflow:hidden!important;
-    overflow-y: scroll!important;
-    height: 500px;
+    /*overflow:hidden!important;*/
+    /*overflow-y: scroll!important;*/
+    /*height: 500px;*/
     background-image: url("/container_bg.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -410,7 +410,7 @@ body {
         max-width: 300px;
     }
     #output {
-        margin: 0 35px 0 35px;
+        margin: 0;
     }
 
 
