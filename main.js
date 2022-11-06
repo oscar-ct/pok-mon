@@ -20,7 +20,6 @@ $(document).ready(function() {
     // }
 // });
 
-
 const activatePokeBall = () => {
     if (!$('#pokemon').hasClass('active')) {
         $('.poke-btn').addClass('animate');
@@ -28,7 +27,6 @@ const activatePokeBall = () => {
         $('#poke-ball').removeClass('bounce');
     }
 }
-
 
 const pokemonName = (name) => {
     return name.charAt(0).toUpperCase() + name.slice(1);
@@ -68,10 +66,10 @@ const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="
     <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
 </div>`;
 
-const mapApiPokemonToDOM = (pokemon) => `<div data-id="${pokemon.id}">
-    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">back</span></div>
+const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${pokemon.id}">
+    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">&#8617;back</span></div>
     <div id="pokemon-stats-container">
-        <img src="${pokemon.sprites.other.dream_world["front_default"]}" style="height: 350px;">
+        <div id="lg-img-container"><img id="lg-img" src="${checkingPokemonImg(pokemon)}"></div>
         <div id="pokemon-details-container">
             <div id="poke-details">
                 <div id="lg-pokemon-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
@@ -91,7 +89,15 @@ const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card" onclick="se
 </div>`;
 
 
-
+const checkingPokemonImg = (pokemon) => {
+    const officialArtwork = pokemon.sprites.other["official-artwork"].front_default;
+    const dreamWorld = pokemon.sprites.other.dream_world["front_default"];
+  if (dreamWorld !== null) {
+      return dreamWorld;
+  } else {
+      return officialArtwork;
+  }
+}
 
 const viewPokemon = (pokemon, pokemon2) => {
     let promises = [];
@@ -110,7 +116,7 @@ const viewPokemon = (pokemon, pokemon2) => {
         $('#output').html(data.map(mapApiPokemonListToDOM));
 
 
-    }).then(applyPillBgColor).then(activatePokeBall);
+    }).then(applyPillBgColor2).then(activatePokeBall);
     console.log(localStoredPokemon);
 
 }
@@ -119,15 +125,18 @@ const viewPokemon = (pokemon, pokemon2) => {
 
 const searchPokemon = (pokemon) => {
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
+        console.log(data);
         $('#output').html(mapApiPokemonToDOM(data));
         applyPillBgColor();
+        // $("#output").animate({ scrollTop: 0 }, "fast");
+        $("#output").scrollTop(0);
       // $('.gen:checked').prop('checked', false);
     });
 }
 
 const mapLocalPokemon = () => {
     $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
-    applyPillBgColor();
+    applyPillBgColor2();
 }
 
 $('#searchPokemon').click(function (e) {
@@ -149,7 +158,7 @@ $('#pokemon').keyup(function (e) {
     });
     console.log(searchResults);
     $('#output').html(searchResults.map(mapLocalPokemonToDOM));
-    applyPillBgColor();
+    applyPillBgColor2();
 });
 
 
@@ -159,7 +168,7 @@ $('.gen').change(function () {
     const placeholder = $('#pokemon');
     switch (val) {
         case '1':
-            viewPokemon(1, 151);
+            viewPokemon(1, 51);
             placeholder.attr('placeholder', 'Search Gen 1 Pokémon')
             break;
         case '2':
@@ -194,50 +203,77 @@ $('.gen').change(function () {
 
 });
 
-
 const pokemon2000 = [
     'Pikachu', 'Meowth', 'Togepi', 'Bulbasaur', 'Charizard', 'Squirtle', 'Lapras', 'Snorlax', 'Goldeen', 'Staryu', 'Psyduck', 'Venonat', 'Marill', 'Scyther', 'Arbok', 'Weezing', 'Mr-Mime', 'Zapdos', 'Articuno', 'Moltres', 'Lugia', 'Slowking', 'Slowpoke', 'Slowbro', 'Magikarp', 'Pidgey', 'Pidgeotto', 'Pidgeot', 'Diglett', 'Paras', 'Parasect', 'Seel', 'Dewgong', 'Wartortle', 'Blastoise', 'Ekans', 'Arbok', 'Eevee', 'Vaporeon', 'Lickitung', 'Tentacool', 'Tentacruel', 'Golduck', 'Horsea', 'Seadra', 'Seaking', 'Gyarados', 'Starmie', 'Venomoth', 'Spearow', 'Fearow', 'Butterfree', 'Zubat', 'Golbat', 'Raichu', 'Rhyhorn', 'Rhydon', 'Onix', 'Cubone', 'Exeggutor', 'Machop', 'Machoke', 'Machamp', 'Hitmonlee', 'Hitmonchan', 'Primeape', 'Tauros', 'Voltorb', 'Geodude', 'Golem', 'Nidoran-m', 'Nidoran-f', 'Nidorino', 'Nidoking', 'Nidorina', 'Nidoqueen', 'Vulpix', 'Ninetales', 'Rapidash', 'Doduo', 'Dodrio', 'Magnemite', 'Magneton', 'Ivysaur', 'Venusaur', 'Sandshrew', 'Sandslash', 'Kangaskhan', 'Rattata', 'Raticate', 'Pinsir', 'Electabuzz', 'Alakazam', 'Wigglytuff', 'Tangela', 'Oddish', 'Gloom', 'Vileplume', 'Krabby', 'Kingler', 'Clefairy', 'Drowzee', 'Hypno', 'Shellder', 'Cloyster', 'Poliwag', 'Poliwhirl', 'Poliwrath', 'Beedrill', 'Chansey', 'Growlithe', 'Bellsprout', 'Weepinbell', 'Victreebel'];
 
-const applyPillBgColor = () => {
+// const applyPillBgColor = () => {
+//     const val = $('.pill');
+//     for (let i = 0; i < 1; i++) {
+//         const pill = val.eq(i);
+//         if (pill[0].innerText === "Grass") {
+//             pill.addClass('background-color-grass');
+//         } else if (pill[0].innerText === "Poison") {
+//             pill.addClass('background-color-poison');
+//         } else if (pill[0].innerText === "Fire") {
+//             pill.addClass('background-color-fire');
+//         } else if (pill[0].innerText === "Water") {
+//             pill.addClass('background-color-water');
+//         } else if (pill[0].innerText === "Flying") {
+//             pill.addClass('background-color-flying');
+//         } else if (pill[0].innerText === "Bug") {
+//             pill.addClass('background-color-bug');
+//         } else if (pill[0].innerText === "Normal") {
+//             pill.addClass('background-color-normal');
+//         } else if (pill[0].innerText === "Electric") {
+//             pill.addClass('background-color-electric');
+//         } else if (pill[0].innerText === "Ground") {
+//             pill.addClass('background-color-ground');
+//         } else if (pill[0].innerText === "Fairy") {
+//             pill.addClass('background-color-fairy');
+//         } else if (pill[0].innerText === "Fighting") {
+//             pill.addClass('background-color-fighting');
+//         } else if (pill[0].innerText === "Psychic") {
+//             pill.addClass('background-color-psychic');
+//         } else if (pill[0].innerText === "Steel") {
+//             pill.addClass('background-color-steel');
+//         } else if (pill[0].innerText === "Ice") {
+//             pill.addClass('background-color-ice');
+//         } else if (pill[0].innerText === "Ghost") {
+//             pill.addClass('background-color-ghost');
+//         } else if (pill[0].innerText === "Rock") {
+//             pill.addClass('background-color-rock');
+//         } else if (pill[0].innerText === "Dragon") {
+//             pill.addClass('background-color-dragon');
+//         } else if (pill[0].innerText === "Dark") {
+//             pill.addClass('background-color-dark');
+//         }
+//     }
+// }
+
+
+const applyPillBgColor2 = () => {
     const val = $('.pill');
     for (let i = 0; i < val.length; i++) {
         const pill = val.eq(i);
-        if (pill[0].innerText === "Grass") {
-            pill.addClass('background-color-grass');
-        } else if (pill[0].innerText === "Poison") {
-            pill.addClass('background-color-poison');
-        } else if (pill[0].innerText === "Fire") {
-            pill.addClass('background-color-fire');
-        } else if (pill[0].innerText === "Water") {
-            pill.addClass('background-color-water');
-        } else if (pill[0].innerText === "Flying") {
-            pill.addClass('background-color-flying');
-        } else if (pill[0].innerText === "Bug") {
-            pill.addClass('background-color-bug');
-        } else if (pill[0].innerText === "Normal") {
-            pill.addClass('background-color-normal');
-        } else if (pill[0].innerText === "Electric") {
-            pill.addClass('background-color-electric');
-        } else if (pill[0].innerText === "Ground") {
-            pill.addClass('background-color-ground');
-        } else if (pill[0].innerText === "Fairy") {
-            pill.addClass('background-color-fairy');
-        } else if (pill[0].innerText === "Fighting") {
-            pill.addClass('background-color-fighting');
-        } else if (pill[0].innerText === "Psychic") {
-            pill.addClass('background-color-psychic');
-        } else if (pill[0].innerText === "Steel") {
-            pill.addClass('background-color-steel');
-        } else if (pill[0].innerText === "Ice") {
-            pill.addClass('background-color-ice');
-        } else if (pill[0].innerText === "Ghost") {
-            pill.addClass('background-color-ghost');
-        } else if (pill[0].innerText === "Rock") {
-            pill.addClass('background-color-rock');
-        } else if (pill[0].innerText === "Dragon") {
-            pill.addClass('background-color-dragon');
-        } else if (pill[0].innerText === "Dark") {
-            pill.addClass('background-color-dark');
+        switch (val.eq(i)[0].innerText) {
+            case 'Grass': pill.addClass('background-color-grass'); break;
+            case 'Poison': pill.addClass('background-color-poison'); break;
+            case 'Fire': pill.addClass('background-color-fire'); break;
+            case 'Water': pill.addClass('background-color-water'); break;
+            case 'Flying': pill.addClass('background-color-flying'); break;
+            case 'Bug': pill.addClass('background-color-bug'); break;
+            case 'Normal': pill.addClass('background-color-normal'); break;
+            case 'Electric': pill.addClass('background-color-electric'); break;
+            case 'Ground': pill.addClass('background-color-ground'); break;
+            case 'Fairy': pill.addClass('background-color-fairy'); break;
+            case 'Fighting': pill.addClass('background-color-fighting'); break;
+            case 'Psychic': pill.addClass('background-color-psychic'); break;
+            case 'Steel': pill.addClass('background-color-steel'); break;
+            case 'Ice': pill.addClass('background-color-ice'); break;
+            case 'Ghost': pill.addClass('background-color-ghost'); break;
+            case 'Rock': pill.addClass('background-color-rock'); break;
+            case 'Dragon': pill.addClass('background-color-dragon'); break;
+            case 'Dark': pill.addClass('background-color-dark'); break;
         }
     }
 }
