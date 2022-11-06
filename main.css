@@ -1,3 +1,14 @@
+.sm-img {
+    background-color: whitesmoke;
+    border-radius: 6px;
+    height: 185px;
+}
+#sm-poke-ball-container-ball {
+    display: none;
+}
+#sm-poke-ball {
+    display: none;
+}
 
 #cssContainer {
     background-color: white;
@@ -53,13 +64,23 @@ body {
         -o-transform: translateY(-10px);
         transform: translateY(-10px); }
 }
-.search-box {
-    width: 50%;
-    height: 100px;
-    position: relative;
+
+.search-box-container {
+    width: 60%;
+    /*height: 25px;*/
+    margin: 0px 0 100px 0;
+    /*position: relative;*/
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+    align-items: start;
+}
+.search-box {
+    /*width: 50%;*/
+    /*height: 100px;*/
+    position: relative;
+    /*display: flex;*/
+    /*justify-content: end;*/
+    /*align-items: end;*/
 }
 .input {
     position: absolute;
@@ -247,7 +268,7 @@ body {
 .list-choice-container {
     display: flex;
     justify-content: center;
-    width: 50%;
+    width: 40%;
 }
 
 .list-choice{
@@ -396,19 +417,21 @@ body {
 
 @media screen and (max-width: 55em) {
     .search-options-container {
+        padding-top: 0;
         flex-direction: column;
+
     }
     .list-choice {
         max-width: 400px;
     }
-    .poke-btn.animate {
-        transform: rotate(-360deg);
-        right: 50px;
-    }
-    .input.active {
-        width: 350px;
-        right: 50px;
-    }
+    /*.poke-btn.animate {*/
+    /*    transform: rotate(-360deg);*/
+    /*    right: 50px;*/
+    /*}*/
+    /*.input.active {*/
+    /*    width: 350px;*/
+    /*    right: 50px;*/
+    /*}*/
     #pokemon-stats-container {
         flex-direction: column;
         justify-content: center;
@@ -420,8 +443,16 @@ body {
     #output {
         margin: 0;
     }
+    .search-box-container {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin: 0px 0 25px 0;
+    }
     .search-box {
         width: 100%;
+        display: flex;
+        justify-content: center;
     }
     .list-choice {
         width: 40%;
@@ -436,6 +467,16 @@ body {
         position: revert;
         width: 75%;
         text-align: center;
+    }
+    #sm-poke-ball-container {
+        display: revert;
+        width: 100%;
+    }
+    #sm-poke-ball {
+        display: revert;
+        height: 40px;
+        margin: 0 0 0 15px;
+        padding: 0;
     }
 
 

@@ -10,9 +10,9 @@ $(".poke-btn").click(function(){
 $(document).ready(function() {
     $('.gen:checked').prop('checked', false);
 });
-// $(window).resize(function() {
-//     // activePokeBall();
-// });
+$(window).resize(function() {
+    activatePokeBall();
+});
     // if ($(window).width() < 700) {
     //     $('.poke-btn').addClass('animate');
     //     $('.input').addClass('active');
@@ -60,7 +60,7 @@ const pokemonHeight = (height) => {
 
 
 const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer;">
-    <div class="mx-2 my-2"><img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 185px;background-color: whitesmoke; border-radius: 6px"></div>
+    <div class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprites.other["official-artwork"].front_default}"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
@@ -82,7 +82,7 @@ const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${
 </div>`;
 
 const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
-    <div class="mx-2 my-2"><img src="${pokemon.sprite}" style="height: 185px; background-color: whitesmoke; border-radius: 6px"></div>
+    <div class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprite}"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemon.type)}</div>
