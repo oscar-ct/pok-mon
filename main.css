@@ -9,6 +9,11 @@
 /*#sm-poke-ball {*/
 /*    display: none;*/
 /*}*/
+#intro {
+    margin: 50px;
+    font-family: 'Exo', sans-serif;
+    font-size: 20px;
+}
 
 #cssContainer {
     background-color: white;

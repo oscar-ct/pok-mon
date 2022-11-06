@@ -67,7 +67,7 @@ const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="
 </div>`;
 
 const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${pokemon.id}">
-    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">back</span></div>
+    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">&lt;&lt;back</span></div>
     <div id="pokemon-stats-container">
         <div id="lg-img-container"><img id="lg-img" src="${checkingPokemonImg(pokemon)}"></div>
         <div id="pokemon-details-container">
@@ -150,7 +150,7 @@ $('#searchPokemon').click(function (e) {
 
 $('#pokemon').on('input', function (e) {
     // $('.gen:checked').prop('checked', false);
-    console.log(localStoredPokemon)
+    // console.log(localStoredPokemon);
     const searchTerm = $('#pokemon').val();
     console.log(searchTerm);
     const searchResults = localStoredPokemon[0].filter(function (x) {
@@ -203,6 +203,34 @@ $('.gen').change(function () {
 
 });
 
+
+const applyPillBgColor2 = () => {
+    const val = $('.pill');
+    for (let i = 0; i < val.length; i++) {
+        const pill = val.eq(i);
+        switch (val.eq(i)[0].innerText) {
+            case 'Grass': pill.addClass('background-color-grass'); break;
+            case 'Poison': pill.addClass('background-color-poison'); break;
+            case 'Fire': pill.addClass('background-color-fire'); break;
+            case 'Water': pill.addClass('background-color-water'); break;
+            case 'Flying': pill.addClass('background-color-flying'); break;
+            case 'Bug': pill.addClass('background-color-bug'); break;
+            case 'Normal': pill.addClass('background-color-normal'); break;
+            case 'Electric': pill.addClass('background-color-electric'); break;
+            case 'Ground': pill.addClass('background-color-ground'); break;
+            case 'Fairy': pill.addClass('background-color-fairy'); break;
+            case 'Fighting': pill.addClass('background-color-fighting'); break;
+            case 'Psychic': pill.addClass('background-color-psychic'); break;
+            case 'Steel': pill.addClass('background-color-steel'); break;
+            case 'Ice': pill.addClass('background-color-ice'); break;
+            case 'Ghost': pill.addClass('background-color-ghost'); break;
+            case 'Rock': pill.addClass('background-color-rock'); break;
+            case 'Dragon': pill.addClass('background-color-dragon'); break;
+            case 'Dark': pill.addClass('background-color-dark'); break;
+        }
+    }
+}
+
 const pokemon2000 = [
     'Pikachu', 'Meowth', 'Togepi', 'Bulbasaur', 'Charizard', 'Squirtle', 'Lapras', 'Snorlax', 'Goldeen', 'Staryu', 'Psyduck', 'Venonat', 'Marill', 'Scyther', 'Arbok', 'Weezing', 'Mr-Mime', 'Zapdos', 'Articuno', 'Moltres', 'Lugia', 'Slowking', 'Slowpoke', 'Slowbro', 'Magikarp', 'Pidgey', 'Pidgeotto', 'Pidgeot', 'Diglett', 'Paras', 'Parasect', 'Seel', 'Dewgong', 'Wartortle', 'Blastoise', 'Ekans', 'Arbok', 'Eevee', 'Vaporeon', 'Lickitung', 'Tentacool', 'Tentacruel', 'Golduck', 'Horsea', 'Seadra', 'Seaking', 'Gyarados', 'Starmie', 'Venomoth', 'Spearow', 'Fearow', 'Butterfree', 'Zubat', 'Golbat', 'Raichu', 'Rhyhorn', 'Rhydon', 'Onix', 'Cubone', 'Exeggutor', 'Machop', 'Machoke', 'Machamp', 'Hitmonlee', 'Hitmonchan', 'Primeape', 'Tauros', 'Voltorb', 'Geodude', 'Golem', 'Nidoran-m', 'Nidoran-f', 'Nidorino', 'Nidoking', 'Nidorina', 'Nidoqueen', 'Vulpix', 'Ninetales', 'Rapidash', 'Doduo', 'Dodrio', 'Magnemite', 'Magneton', 'Ivysaur', 'Venusaur', 'Sandshrew', 'Sandslash', 'Kangaskhan', 'Rattata', 'Raticate', 'Pinsir', 'Electabuzz', 'Alakazam', 'Wigglytuff', 'Tangela', 'Oddish', 'Gloom', 'Vileplume', 'Krabby', 'Kingler', 'Clefairy', 'Drowzee', 'Hypno', 'Shellder', 'Cloyster', 'Poliwag', 'Poliwhirl', 'Poliwrath', 'Beedrill', 'Chansey', 'Growlithe', 'Bellsprout', 'Weepinbell', 'Victreebel'];
 
@@ -251,29 +279,3 @@ const pokemon2000 = [
 // }
 
 
-const applyPillBgColor2 = () => {
-    const val = $('.pill');
-    for (let i = 0; i < val.length; i++) {
-        const pill = val.eq(i);
-        switch (val.eq(i)[0].innerText) {
-            case 'Grass': pill.addClass('background-color-grass'); break;
-            case 'Poison': pill.addClass('background-color-poison'); break;
-            case 'Fire': pill.addClass('background-color-fire'); break;
-            case 'Water': pill.addClass('background-color-water'); break;
-            case 'Flying': pill.addClass('background-color-flying'); break;
-            case 'Bug': pill.addClass('background-color-bug'); break;
-            case 'Normal': pill.addClass('background-color-normal'); break;
-            case 'Electric': pill.addClass('background-color-electric'); break;
-            case 'Ground': pill.addClass('background-color-ground'); break;
-            case 'Fairy': pill.addClass('background-color-fairy'); break;
-            case 'Fighting': pill.addClass('background-color-fighting'); break;
-            case 'Psychic': pill.addClass('background-color-psychic'); break;
-            case 'Steel': pill.addClass('background-color-steel'); break;
-            case 'Ice': pill.addClass('background-color-ice'); break;
-            case 'Ghost': pill.addClass('background-color-ghost'); break;
-            case 'Rock': pill.addClass('background-color-rock'); break;
-            case 'Dragon': pill.addClass('background-color-dragon'); break;
-            case 'Dark': pill.addClass('background-color-dark'); break;
-        }
-    }
-}
