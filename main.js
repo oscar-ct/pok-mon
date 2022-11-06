@@ -46,9 +46,9 @@ const pokemonTypes = (arr) => {
 const pillPokemonTypes = (str) => {
     const arr = str.split(' ');
     if (arr.length === 1) {
-        return `<span class="pill">${arr[0]}</span>`;
+        return `<span class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span>`;
     } else if (arr.length === 2) {
-        return `<span class="pill">${arr[0]}</span><span class="pill">${arr[1]}</span>`;
+        return `<span class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span><span class="pill" style="${applyPillBgColor3(arr[1])}">${arr[1]}</span>`;
     }
 }
 
@@ -116,7 +116,7 @@ const viewPokemon = (pokemon, pokemon2) => {
         })];
         $('#output').html(data.map(mapApiPokemonListToDOM));
     }).then(function () {
-        applyPillBgColor2();
+        // applyPillBgColor2();
         activatePokeBall();
         // console.log(localStoredPokemon);
     });
@@ -136,13 +136,13 @@ const searchPokemon = (pokemon) => {
       // $('.gen:checked').prop('checked', false);
     }).then(function () {
         $("#output").scrollTop(0);
-        applyPillBgColor2();
+        // applyPillBgColor2();
     });
 }
 
 const mapLocalPokemon = () => {
     $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
-    applyPillBgColor2();
+    // applyPillBgColor2();
 }
 
 // $('#searchPokemon').click(function (e) {
@@ -164,7 +164,7 @@ $('#pokemon').on('input', function (e) {
     });
     console.log(searchResults);
     $('#output').html(searchResults.map(mapLocalPokemonToDOM));
-    applyPillBgColor2();
+    // applyPillBgColor2();
 });
 
 
@@ -250,6 +250,30 @@ const applyPillBgColor2 = () => {
             case 'Dragon': pill.addClass('background-color-dragon'); break;
             case 'Dark': pill.addClass('background-color-dark'); break;
         }
+    }
+}
+
+
+const applyPillBgColor3 = (str) => {
+    switch (str) {
+        case 'Grass': return `background-color: #9bcc50;`;
+        case 'Poison': return 'background-color: #b97fc9; color: white;';
+        case 'Fire': return 'background-color: #fd7d24; color: white;';
+        case 'Water': return 'background-color: #4592c4; color: white;';
+        case 'Flying': return 'background: linear-gradient(180deg, #3dc7ef 50%, #bdb9b8 50%);';
+        case 'Bug': return 'background-color: #729f3f; color: white;';
+        case 'Normal': return 'background-color: #a4acaf;';
+        case 'Electric': return 'background-color: #eed535;';
+        case 'Ground': return 'background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);';
+        case 'Fairy': return 'background-color: #fdb9e9; color: white;';
+        case 'Fighting': return 'background-color: #d56723; color: white;';
+        case 'Psychic': return 'background-color: #f366b9;'
+        case 'Steel': return 'background-color: #9eb7b8;';
+        case 'Ice': return 'background-color: #51c4e7;';
+        case 'Ghost': return 'background-color: #7b62a3; color: white;';
+        case 'Rock': return 'background-color: #a38c21; color: white;';
+        case 'Dragon': return 'background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%); color: white;';
+        case 'Dark': return 'background:   #707070; color: white;';
     }
 }
 
