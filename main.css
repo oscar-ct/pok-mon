@@ -527,7 +527,7 @@ body {
         display: flex;
         width: 20em;
         height: 3em;
-        border-radius: 6px;
+        /*border-radius: .25em;*/
         overflow: hidden;
     }
     /* Arrow */
