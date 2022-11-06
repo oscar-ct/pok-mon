@@ -154,7 +154,7 @@ const mapLocalPokemon = () => {
 
 
 
-$('#pokemon').on('keyup touchend', function (e) {
+$('#pokemon').on('input', function (e) {
     // $('.gen:checked').prop('checked', false);
     // console.log(localStoredPokemon);
     const searchTerm = $('#pokemon').val();
