@@ -114,10 +114,12 @@ const viewPokemon = (pokemon, pokemon2) => {
             }
         })];
         $('#output').html(data.map(mapApiPokemonListToDOM));
+    }).then(function () {
+        applyPillBgColor2();
+        activatePokeBall();
+        // console.log(localStoredPokemon);
+    });
 
-
-    }).then(applyPillBgColor2).then(activatePokeBall);
-    console.log(localStoredPokemon);
 
 }
 
@@ -127,10 +129,13 @@ const searchPokemon = (pokemon) => {
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
         console.log(data);
         $('#output').html(mapApiPokemonToDOM(data));
-        applyPillBgColor2();
+
         // $("#output").animate({ scrollTop: 0 }, "fast");
-        $("#output").scrollTop(0);
+
       // $('.gen:checked').prop('checked', false);
+    }).then(function () {
+        $("#output").scrollTop(0);
+        applyPillBgColor2();
     });
 }
 
@@ -139,12 +144,12 @@ const mapLocalPokemon = () => {
     applyPillBgColor2();
 }
 
-$('#searchPokemon').click(function (e) {
-    e.preventDefault();
-    const pokemon = $('#pokemon').val();
-    searchPokemon(pokemon);
-    $('.gen:checked').prop('checked', false);
-});
+// $('#searchPokemon').click(function (e) {
+//     e.preventDefault();
+//     const pokemon = $('#pokemon').val();
+//     searchPokemon(pokemon);
+//     $('.gen:checked').prop('checked', false);
+// });
 
 
 
