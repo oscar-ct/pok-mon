@@ -6,81 +6,99 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5c1e7c5892.js" crossorigin="anonymous"></script>
 <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"-->
 <!--          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+<div id="cssContainer">
+    <div class="search-options-container">
 
-<div class="search-options-container">
-
-
-    <div class="input-group rounded">
-        <input id="pokemon" type="search" class="form-control rounded" placeholder="Search Pokémon" aria-label="Search" aria-describedby="search-addon" />
-        <button id="searchPokemon" class="btn btn-secondary">Search</button>
-    </div>
-
-<!--    <div class="container d-flex justify-content-center align-items-center my-4 flex-wrap">-->
-<!--        <span>Generation:</span>-->
-<!--        <button id="viewAllPokemon" class="pokemon-gen-btn">I</button>-->
-<!--        <button id="viewAllPokemon2" class="pokemon-gen-btn">II</button>-->
-<!--        <button id="viewAllPokemon3" class="pokemon-gen-btn">III</button>-->
-<!--        <button id="viewAllPokemon4" class="pokemon-gen-btn">IV</button>-->
-<!--        <button id="viewAllPokemon5" class="pokemon-gen-btn">V</button>-->
-<!--        <button id="viewAllPokemon6" class="pokemon-gen-btn">VI</button>-->
-<!--        <button id="viewAllPokemon7" class="pokemon-gen-btn">VII</button>-->
-<!--        <button id="viewAllPokemon8" class="pokemon-gen-btn">VIII</button>-->
-<!--&lt;!&ndash;        <button id="viewAllPokemon9" class="btn btn-outline-warning mx-2">Gen IX</button>&ndash;&gt;-->
-<!--&lt;!&ndash;        <button id="viewPokemon2000" class="btn btn-outline-warning mx-2">Pokémon The Movie 2000</button>&ndash;&gt;-->
-<!--    </div>-->
-
-    <div class="list-choice">
-        <div class="list-choice-title">Month</div>
-        <div class="list-choice-objects">
-            <label>
-                <input type="radio" name="month"/>
-                <span>January</span>
-            </label>
-            <label>
-                <input type="radio" name="month"/>
-                <span>February</span>
-            </label>
-            <label>
-                <input type="radio" name="month"/>
-                <span>March</span>
-            </label>
-            <label>
-                <input type="radio" name="month"/>
-                <span>April</span>
-            </label>
-            <label>
-                <input type="radio" name="month"/>
-                <span>May</span>
-            </label>
-            <label>
-                <input type="radio" name="month"/>
-                <span>June</span>
-            </label>
+        <div class="search-box">
+            <input id="pokemon" type="text" class="input">
+            <div class="poke-btn"><img id="poke-ball" class="bounce" src="pokeball.png">
+    <!--                <i class="fa fa-search" aria-hidden="true"></i>-->
+            </div>
         </div>
+
+    <!--    <div class="input-group rounded">-->
+    <!--        <input id="pokemon" type="search" class="form-control rounded" placeholder="Search Pokémon" aria-label="Search" aria-describedby="search-addon" />-->
+    <!--        <button id="searchPokemon" class="btn btn-secondary">Search</button>-->
+    <!--    </div>-->
+
+
+
+    <!--    <div class="container d-flex justify-content-center align-items-center my-4 flex-wrap">-->
+    <!--        <span>Generation:</span>-->
+    <!--        <button id="viewAllPokemon" class="pokemon-gen-btn">I</button>-->
+    <!--        <button id="viewAllPokemon2" class="pokemon-gen-btn">II</button>-->
+    <!--        <button id="viewAllPokemon3" class="pokemon-gen-btn">III</button>-->
+    <!--        <button id="viewAllPokemon4" class="pokemon-gen-btn">IV</button>-->
+    <!--        <button id="viewAllPokemon5" class="pokemon-gen-btn">V</button>-->
+    <!--        <button id="viewAllPokemon6" class="pokemon-gen-btn">VI</button>-->
+    <!--        <button id="viewAllPokemon7" class="pokemon-gen-btn">VII</button>-->
+    <!--        <button id="viewAllPokemon8" class="pokemon-gen-btn">VIII</button>-->
+    <!--&lt;!&ndash;        <button id="viewAllPokemon9" class="btn btn-outline-warning mx-2">Gen IX</button>&ndash;&gt;-->
+    <!--&lt;!&ndash;        <button id="viewPokemon2000" class="btn btn-outline-warning mx-2">Pokémon The Movie 2000</button>&ndash;&gt;-->
+    <!--    </div>-->
+
+        <div class="list-choice">
+            <div class="list-choice-title">Select Pokémon</div>
+            <div class="list-choice-objects">
+                <label>
+                    <input type="radio" name="gen" class="gen" value="1"/>
+                    <span>Generation 1</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="2"/>
+                    <span>Generation 2</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="3"/>
+                    <span>Generation 3</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="4"/>
+                    <span>Generation 4</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="5"/>
+                    <span>Generation 4</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="6"/>
+                    <span>Generation 5</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="7"/>
+                    <span>Generation 6</span>
+                </label>
+                <label>
+                    <input type="radio" name="gen" class="gen" value="8"/>
+                    <span>Generation 7</span>
+                </label>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+    <div class="output-container">
+<!--        <div><img id="whos-pokemon" src="whos_that_pokemon.webp"/></div>-->
+        <div id="output"></div>
     </div>
 
 
 
 
+
+
 </div>
-
-
-
-<div class="output-container">
-    <div class="d-flex flex-wrap justify-content-center" id="output"></div>
-</div>
-
-
-
-
-
-
-
 
 
 
