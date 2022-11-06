@@ -1,3 +1,33 @@
+let localStoredPokemon = '';
+
+$(".poke-btn").click(function(){
+    $(".input").toggleClass("active").focus();
+    $(this).toggleClass("animate");
+    $('#poke-ball').toggleClass('bounce');
+    $(".input").val("");
+});
+
+$(document).ready(function() {
+    $('.gen:checked').prop('checked', false);
+});
+// $(window).resize(function() {
+//     // activePokeBall();
+// });
+    // if ($(window).width() < 700) {
+    //     $('.poke-btn').addClass('animate');
+    //     $('.input').addClass('active');
+    //     $('#poke-ball').removeClass('bounce');
+    // }
+// });
+
+
+const activatePokeBall = () => {
+    if (!$('#pokemon').hasClass('active')) {
+        $('.poke-btn').addClass('animate');
+        $('.input').addClass('active');
+        $('#poke-ball').removeClass('bounce');
+    }
+}
 
 
 const pokemonName = (name) => {
@@ -16,45 +46,52 @@ const pokemonTypes = (arr) => {
 }
 const pillPokemonTypes = (str) => {
     const arr = str.split(' ');
-    console.log(arr);
     if (arr.length === 1) {
         return `<span class="pill">${arr[0]}</span>`;
     } else if (arr.length === 2) {
         return `<span class="pill">${arr[0]}</span><span class="pill">${arr[1]}</span>`;
     }
-
 }
+
 const pokemonHeight = (height) => {
     let inches = (height / 2.54).toFixed(0);
     let feet = Math.floor(inches / 12);
     inches %= 12;
-    return `${feet}' ${inches}"`
+    return `${feet}' ${inches}"`;
 }
 
 
-const mapApiPokemonListToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
-    <div class="mx-2 my-2"><img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 185px; background-color: whitesmoke; border-radius: 6px"></div>
+const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer;">
+    <div class="mx-2 my-2"><img src="${pokemon.sprites.other["official-artwork"].front_default}" style="height: 185px;background-color: whitesmoke; border-radius: 6px"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
-    <div><h4 style="font-family: 'Exo', sans-serif;">${pokemonName(pokemon.name)}</h7></div>
-    <div>${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
-    </div>`;
+    <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
+    <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
+</div>`;
 
-const mapApiPokemonToDOM = (pokemon) => `<div data-id="${pokemon.id}" style="cursor: pointer">
-    <img src="${pokemon.sprites.other.dream_world["front_default"]}" style="height: 500px;">
-    <div class="d-flex justify-content-center"><h4>Name: <span>${pokemonName(pokemon.name)}</span></h4></div>
-    <div class="d-flex justify-content-center"><h4>Type: <span>${pokemonTypes(pokemon.types)}</span></h4></div>
-     <div class="d-flex justify-content-center"><h4>Height: <span>${pokemonHeight(pokemon.height * 10)}</span></h4></div>
-      <div class="d-flex justify-content-center"><h4>Weight: <span>${(pokemon.weight/4.536).toFixed(2) + "lbs"}</span></h4></div>
-    </div>`;
-const mapLocalPokemonToDOM = (pokemon) => `<div onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
+const mapApiPokemonToDOM = (pokemon) => `<div data-id="${pokemon.id}">
+    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">back</span></div>
+    <div id="pokemon-stats-container">
+        <img src="${pokemon.sprites.other.dream_world["front_default"]}" style="height: 350px;">
+        <div id="pokemon-details-container">
+            <div id="poke-details">
+                <div id="lg-pokemon-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
+                <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
+                <div class="exo poke-stats"><span class="stat">Height:</span><span>${pokemonHeight(pokemon.height * 10)}</span></div>
+                <div class="exo poke-stats"><span class="stat">Weight:</span><span>${(pokemon.weight/4.536).toFixed(2) + "lbs"}</span></div>
+            </div>
+        </div>
+    </div>
+</div>`;
+
+const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
     <div class="mx-2 my-2"><img src="${pokemon.sprite}" style="height: 185px; background-color: whitesmoke; border-radius: 6px"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
-    <div><h4 style="font-family: 'Exo', sans-serif;">${pokemonName(pokemon.name)}</h4></div>
-    <div>${pillPokemonTypes(pokemon.type)}</div>
-    </div>`;
+    <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
+    <div class="pill-container">${pillPokemonTypes(pokemon.type)}</div>
+</div>`;
 
 
-let localStoredPokemon = '';
+
 
 const viewPokemon = (pokemon, pokemon2) => {
     let promises = [];
@@ -72,28 +109,38 @@ const viewPokemon = (pokemon, pokemon2) => {
         })];
         $('#output').html(data.map(mapApiPokemonListToDOM));
 
-    }).then(applyPillBgColor);
+
+    }).then(applyPillBgColor).then(activatePokeBall);
     console.log(localStoredPokemon);
 
 }
 
 
 
-
 const searchPokemon = (pokemon) => {
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
-        $('#output').html(mapApiPokemonToDOM(data))
+        $('#output').html(mapApiPokemonToDOM(data));
+        applyPillBgColor();
+      // $('.gen:checked').prop('checked', false);
     });
 }
 
+const mapLocalPokemon = () => {
+    $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+    applyPillBgColor();
+}
 
 $('#searchPokemon').click(function (e) {
     e.preventDefault();
     const pokemon = $('#pokemon').val();
     searchPokemon(pokemon);
+    $('.gen:checked').prop('checked', false);
 });
 
+
+
 $('#pokemon').keyup(function (e) {
+    // $('.gen:checked').prop('checked', false);
     console.log(localStoredPokemon)
     const searchTerm = $('#pokemon').val();
     console.log(searchTerm);
@@ -106,47 +153,47 @@ $('#pokemon').keyup(function (e) {
 });
 
 
-$('#viewAllPokemon').click(function () {
-    viewPokemon(1, 152);
-});
 
-$('#viewAllPokemon2').click(function () {
-    viewPokemon(152, 252);
-});
-
-$('#viewAllPokemon3').click(function () {
-    viewPokemon(252, 387);
-});
-$('#viewAllPokemon4').click(function () {
-    viewPokemon(387, 494);
-});
-$('#viewAllPokemon5').click(function () {
-    viewPokemon(494, 650);
-});
-
-$('#viewAllPokemon6').click(function () {
-    viewPokemon(650, 722);
-});
-
-$('#viewAllPokemon7').click(function () {
-    viewPokemon(722, 810);
-});
-$('#viewAllPokemon8').click(function () {
-    viewPokemon(810, 906);
-});
-// $('#viewAllPokemon9').click(function () {
-//     viewPokemon(906, 925);
-// });
-
-$('#viewPokemon2000').click(function () {
-    viewAllPokemon2000();
-});
-
-function viewAllPokemon2000() {
-    for (let i = 0; i < pokemon2000.length; i++) {
-        viewPokemon(pokemon2000[i].toLowerCase());
+$('.gen').change(function () {
+    const val = $(".gen:checked").val();
+    const placeholder = $('#pokemon');
+    switch (val) {
+        case '1':
+            viewPokemon(1, 151);
+            placeholder.attr('placeholder', 'Search Gen 1 Pokémon')
+            break;
+        case '2':
+            viewPokemon(152, 252);
+            placeholder.attr('placeholder', 'Search Gen 2 Pokémon')
+            break;
+        case '3':
+            viewPokemon(252, 387);
+            placeholder.attr('placeholder', 'Search Gen 3 Pokémon')
+            break;
+        case '4':
+            viewPokemon(387, 494);
+            placeholder.attr('placeholder', 'Search Gen 4 Pokémon')
+            break;
+        case '5':
+            viewPokemon(494, 650);
+            placeholder.attr('placeholder', 'Search Gen 5 Pokémon')
+            break;
+        case '6':
+            viewPokemon(650, 722);
+            placeholder.attr('placeholder', 'Search Gen 6 Pokémon')
+            break;
+        case '7':
+            viewPokemon(722, 810);
+            placeholder.attr('placeholder', 'Search Gen 7 Pokémon')
+            break;
+        case '8':
+            viewPokemon(810, 906);
+            placeholder.attr('placeholder', 'Search Gen 8 Pokémon')
+            break;
     }
-}
+
+});
+
 
 const pokemon2000 = [
     'Pikachu', 'Meowth', 'Togepi', 'Bulbasaur', 'Charizard', 'Squirtle', 'Lapras', 'Snorlax', 'Goldeen', 'Staryu', 'Psyduck', 'Venonat', 'Marill', 'Scyther', 'Arbok', 'Weezing', 'Mr-Mime', 'Zapdos', 'Articuno', 'Moltres', 'Lugia', 'Slowking', 'Slowpoke', 'Slowbro', 'Magikarp', 'Pidgey', 'Pidgeotto', 'Pidgeot', 'Diglett', 'Paras', 'Parasect', 'Seel', 'Dewgong', 'Wartortle', 'Blastoise', 'Ekans', 'Arbok', 'Eevee', 'Vaporeon', 'Lickitung', 'Tentacool', 'Tentacruel', 'Golduck', 'Horsea', 'Seadra', 'Seaking', 'Gyarados', 'Starmie', 'Venomoth', 'Spearow', 'Fearow', 'Butterfree', 'Zubat', 'Golbat', 'Raichu', 'Rhyhorn', 'Rhydon', 'Onix', 'Cubone', 'Exeggutor', 'Machop', 'Machoke', 'Machamp', 'Hitmonlee', 'Hitmonchan', 'Primeape', 'Tauros', 'Voltorb', 'Geodude', 'Golem', 'Nidoran-m', 'Nidoran-f', 'Nidorino', 'Nidoking', 'Nidorina', 'Nidoqueen', 'Vulpix', 'Ninetales', 'Rapidash', 'Doduo', 'Dodrio', 'Magnemite', 'Magneton', 'Ivysaur', 'Venusaur', 'Sandshrew', 'Sandslash', 'Kangaskhan', 'Rattata', 'Raticate', 'Pinsir', 'Electabuzz', 'Alakazam', 'Wigglytuff', 'Tangela', 'Oddish', 'Gloom', 'Vileplume', 'Krabby', 'Kingler', 'Clefairy', 'Drowzee', 'Hypno', 'Shellder', 'Cloyster', 'Poliwag', 'Poliwhirl', 'Poliwrath', 'Beedrill', 'Chansey', 'Growlithe', 'Bellsprout', 'Weepinbell', 'Victreebel'];
