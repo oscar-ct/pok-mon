@@ -127,7 +127,7 @@ const searchPokemon = (pokemon) => {
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
         console.log(data);
         $('#output').html(mapApiPokemonToDOM(data));
-        applyPillBgColor();
+        applyPillBgColor2();
         // $("#output").animate({ scrollTop: 0 }, "fast");
         $("#output").scrollTop(0);
       // $('.gen:checked').prop('checked', false);
