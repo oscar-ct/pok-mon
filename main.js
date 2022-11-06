@@ -9,6 +9,7 @@ $(".poke-btn").click(function(){
 
 $(document).ready(function() {
     $('.gen:checked').prop('checked', false);
+    $(".select option:selected").prop('selected', false);
 });
 $(window).resize(function() {
     activatePokeBall();
@@ -167,9 +168,25 @@ $('#pokemon').on('input', function (e) {
 });
 
 
+// $("#optionselect").change(function(){
+//     Var value =  $(“# optionselect option: selected”);
+//     alert(value.text());
+//
+
 
 $('.gen').change(function () {
     const val = $(".gen:checked").val();
+    runPokemon(val);
+});
+
+$('.select').change(function () {
+    const val = $(".select option:selected").val();
+    $("#disable").attr('disabled', true);
+    runPokemon(val);
+});
+
+
+const runPokemon = (val) => {
     const placeholder = $('#pokemon');
     switch (val) {
         case '1':
@@ -205,8 +222,8 @@ $('.gen').change(function () {
             placeholder.attr('placeholder', 'Search Gen 8 Pokémon')
             break;
     }
+}
 
-});
 
 
 const applyPillBgColor2 = () => {

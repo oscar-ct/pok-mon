@@ -331,11 +331,11 @@ body {
     max-height: 0;
     transition: all 250ms ease;
 }
-.list-choice:hover .list-choice-objects  input[type="radio"] + span {
-    position: relative;
-    top: 0;
-    transition: all 250ms ease-in-out;
-}
+/*.list-choice:hover .list-choice-objects  input[type="radio"] + span {*/
+/*    position: relative;*/
+/*    top: 0;*/
+/*    transition: all 250ms ease-in-out;*/
+/*}*/
 .list-choice:hover input[type="radio"] + span:hover {
     background:#fec20b;
     color: black;
@@ -420,11 +420,23 @@ body {
     color: blue;
 }
 
+.select {
+    display: none;
+}
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 55em) {
     .search-options-container {
         padding-top: 0;
         flex-direction: column;
+        padding-bottom: 1.5em;
 
     }
     .list-choice {
@@ -475,19 +487,66 @@ body {
         width: 75%;
         text-align: center;
     }
-    /*#sm-poke-ball-container {*/
-    /*    display: revert;*/
-    /*    width: 100%;*/
-    /*}*/
-    /*#sm-poke-ball {*/
-    /*    display: revert;*/
-    /*    height: 40px;*/
-    /*    margin: 0 0 0 15px;*/
-    /*    padding: 0;*/
-    /*}*/
     .sm-img {
         height: 150px;
     }
+    .pokemon-card:hover {
+        animation: none;
+    }
+    .list-choice-container {
+        display: none;
+    }
+    option {
+        text-align: center;
+        font-family: 'Exo', sans-serif;
+        text-align-last: center;
+    }
+    select {
+        font-family: 'Exo', sans-serif;
+        text-align: center;
+        /* Reset Select */
+        appearance: none;
+        outline: 0;
+        border: 0;
+        box-shadow: none;
+        /* Personalize */
+        flex: 1;
+        padding: 0 1em;
+        color: #fff;
+        background-color: #34495e;
+        background-image: none;
+        cursor: pointer;
+    }
+    /* Remove IE arrow */
+    select::-ms-expand {
+        display: none;
+    }
+    /* Custom Select wrapper */
+    .select {
+        position: relative;
+        display: flex;
+        width: 20em;
+        height: 3em;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    /* Arrow */
+    .select::after {
+        content: '\25BC';
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 1em;
+        background-color: #34495e;
+        transition: .25s all ease;
+        pointer-events: none;
+    }
+    /* Transition */
+    .select:hover::after {
+        color: #f39c12;
+    }
+
+
 
 
 
