@@ -496,22 +496,19 @@ body {
     .list-choice-container {
         display: none;
     }
-    option {
-        text-align: center;
-        font-family: 'Exo', sans-serif;
-        text-align-last: center;
-    }
+
     select {
+        border-top-left-radius: 7px;
+        border-bottom-left-radius: 7px;
         font-family: 'Exo', sans-serif;
-        text-align: center;
         /* Reset Select */
         appearance: none;
-        outline: 0;
+        /*outline: 0;*/
         border: 0;
-        box-shadow: none;
+        /*box-shadow: none;*/
         /* Personalize */
-        flex: 1;
-        padding: 0 1em;
+        /*flex: 1;*/
+        padding: 1.1em 4em 1.1em 1.1em;
         color: #fff;
         background-color: #34495e;
         background-image: none;
@@ -523,19 +520,22 @@ body {
     }
     /* Custom Select wrapper */
     .select {
-        position: relative;
+        /*position: relative;*/
         display: flex;
-        width: 20em;
-        height: 3em;
+        /*padding: 1em;*/
+        /*width: 15em;*/
+        /*height: 3em;*/
         /*border-radius: .25em;*/
-        overflow: hidden;
+        /*overflow: hidden;*/
     }
     /* Arrow */
     .select::after {
+        border-top-right-radius: 7px;
+        border-bottom-right-radius: 7px;
         content: '\25BC';
-        position: absolute;
-        top: 0;
-        right: 0;
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*right: 0;*/
         padding: 1em;
         background-color: #34495e;
         transition: .25s all ease;
