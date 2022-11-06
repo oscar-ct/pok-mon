@@ -409,6 +409,9 @@ body {
     #lg-img-container {
         max-width: 300px;
     }
+    #output {
+        margin: 0 35px 0 35px;
+    }
 
 
 

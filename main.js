@@ -67,7 +67,7 @@ const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="
 </div>`;
 
 const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${pokemon.id}">
-    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">&#8617;back</span></div>
+    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">back</span></div>
     <div id="pokemon-stats-container">
         <div id="lg-img-container"><img id="lg-img" src="${checkingPokemonImg(pokemon)}"></div>
         <div id="pokemon-details-container">
