@@ -142,8 +142,17 @@ const searchPokemon = (pokemon) => {
 }
 
 const mapLocalPokemon = () => {
-    $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
-    // applyPillBgColor2();
+    const searchTerm = $('#pokemon').val();
+    if (searchTerm === '') {
+        $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+        // applyPillBgColor2();
+    } else {
+        const searchResults = localStoredPokemon[0].filter(function (x) {
+            if (namesMatch(x.name, searchTerm))
+                return x.name;
+        });
+        $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+    }
 }
 
 // $('#searchPokemon').click(function (e) {
