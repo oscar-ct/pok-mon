@@ -171,11 +171,12 @@ const mapLocalPokemon = () => {
 $('#search-icon-container').click(function () {
     const searchTerm = $('#pokemon').val();
     console.log(searchTerm);
-    const searchResults = localStoredPokemon[0].filter(function (x) {
-        return x.name.includes(searchTerm);
-    });
-    console.log(searchResults);
-    $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+    console.log(localStoredPokemon);
+    // const searchResults = localStoredPokemon[0].filter(function (x) {
+    //     return x.name.includes(searchTerm);
+    // });
+    // console.log(searchResults);
+    // $('#output').html(searchResults.map(mapLocalPokemonToDOM));
 });
 
 // $("#optionselect").change(function(){
