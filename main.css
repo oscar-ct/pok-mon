@@ -1,3 +1,7 @@
+#search-icon-container {
+    display: none;
+}
+
 .sm-img {
     background-color: whitesmoke;
     border-radius: 6px;
@@ -433,6 +437,23 @@ body {
 
 
 @media screen and (max-width: 55em) {
+    #search-icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 30px;
+        transform: translateX(-40px) translateY(10px);
+        padding: 0px;
+        background-color: #34495e;
+        border-radius: 50%;
+        height: 30px;
+
+    }
+    .search-icon {
+        color: white;
+    }
+
     .search-options-container {
         padding-top: 0;
         flex-direction: column;
@@ -466,6 +487,7 @@ body {
         justify-content: center;
         align-items: center;
         margin: 30px 0 25px 0;
+        transform: translateX(15px);
     }
     .search-box {
         width: 100%;

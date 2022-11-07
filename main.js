@@ -10,6 +10,7 @@ $(".poke-btn").click(function(){
 $(document).ready(function() {
     $('.gen:checked').prop('checked', false);
     $(".select option:selected").prop('selected', false);
+    $('#pokemon').val('');
 });
 $(window).resize(function() {
     activatePokeBall();
@@ -154,9 +155,20 @@ const mapLocalPokemon = () => {
 
 
 
-$('#pokemon').on('input change', function (e) {
-    // $('.gen:checked').prop('checked', false);
-    // console.log(localStoredPokemon);
+// $('#pokemon').on('input change', function (e) {
+//     // $('.gen:checked').prop('checked', false);
+//     // console.log(localStoredPokemon);
+//     const searchTerm = $('#pokemon').val();
+//     console.log(searchTerm);
+//     const searchResults = localStoredPokemon[0].filter(function (x) {
+//         return x.name.includes(searchTerm);
+//     });
+//     console.log(searchResults);
+//     $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+//     // applyPillBgColor2();
+// });
+
+$('#search-icon-container').click(function () {
     const searchTerm = $('#pokemon').val();
     console.log(searchTerm);
     const searchResults = localStoredPokemon[0].filter(function (x) {
@@ -164,9 +176,7 @@ $('#pokemon').on('input change', function (e) {
     });
     console.log(searchResults);
     $('#output').html(searchResults.map(mapLocalPokemonToDOM));
-    // applyPillBgColor2();
 });
-
 
 // $("#optionselect").change(function(){
 //     Var value =  $(“# optionselect option: selected”);
@@ -177,7 +187,11 @@ $('#pokemon').on('input change', function (e) {
 $('.gen').change(function () {
     const val = $(".gen:checked").val();
     runPokemon(val);
+    // if ($(window).width() < 880) {
+    //     $('#search-icon-container').css('display', 'flex');
+    // }
 });
+
 
 $('.select').change(function () {
     const val = $(".select option:selected").val();
