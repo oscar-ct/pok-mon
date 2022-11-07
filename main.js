@@ -174,7 +174,8 @@ $('#search-icon-container').click(function () {
     console.log(searchTerm);
     console.log(pokemon);
     const searchResults = pokemon.filter(function (x) {
-        return x.name.includes(searchTerm);
+        if (includes(x.name, searchTerm))
+        return x.name;
     });
     console.log(searchResults);
     $('#output').html(searchResults.map(mapLocalPokemonToDOM));
@@ -185,6 +186,16 @@ $('#search-icon-container').click(function () {
 //     alert(value.text());
 //
 
+const includes = (str, searchTerm) => {
+    const arr = str.split('');
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i].toLowerCase() === searchTerm.toLowerCase()) {
+            count++
+        }
+    }
+    return count !== 0;
+}
 
 $('.gen').change(function () {
     const val = $(".gen:checked").val();
