@@ -270,7 +270,7 @@ const runPokemon = (val) => {
     const placeholder = $('#pokemon');
     switch (val) {
         case '1':
-            viewPokemon(1, 151);
+            viewPokemon(1, 152);
             placeholder.attr('placeholder', 'Search Gen 1 Pokémon')
             break;
         case '2':
