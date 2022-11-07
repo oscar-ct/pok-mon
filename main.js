@@ -224,39 +224,9 @@ const runPokemon = (val) => {
     }
 }
 
-
-
-const applyPillBgColor2 = () => {
-    const val = $('.pill');
-    for (let i = 0; i < val.length; i++) {
-        const pill = val.eq(i);
-        switch (val.eq(i)[0].innerText) {
-            case 'Grass': pill.addClass('background-color-grass'); break;
-            case 'Poison': pill.addClass('background-color-poison'); break;
-            case 'Fire': pill.addClass('background-color-fire'); break;
-            case 'Water': pill.addClass('background-color-water'); break;
-            case 'Flying': pill.addClass('background-color-flying'); break;
-            case 'Bug': pill.addClass('background-color-bug'); break;
-            case 'Normal': pill.addClass('background-color-normal'); break;
-            case 'Electric': pill.addClass('background-color-electric'); break;
-            case 'Ground': pill.addClass('background-color-ground'); break;
-            case 'Fairy': pill.addClass('background-color-fairy'); break;
-            case 'Fighting': pill.addClass('background-color-fighting'); break;
-            case 'Psychic': pill.addClass('background-color-psychic'); break;
-            case 'Steel': pill.addClass('background-color-steel'); break;
-            case 'Ice': pill.addClass('background-color-ice'); break;
-            case 'Ghost': pill.addClass('background-color-ghost'); break;
-            case 'Rock': pill.addClass('background-color-rock'); break;
-            case 'Dragon': pill.addClass('background-color-dragon'); break;
-            case 'Dark': pill.addClass('background-color-dark'); break;
-        }
-    }
-}
-
-
 const applyPillBgColor3 = (str) => {
     switch (str) {
-        case 'Grass': return `background-color: #9bcc50;`;
+        case 'Grass': return 'background-color: #9bcc50;';
         case 'Poison': return 'background-color: #b97fc9; color: white;';
         case 'Fire': return 'background-color: #fd7d24; color: white;';
         case 'Water': return 'background-color: #4592c4; color: white;';
@@ -324,4 +294,31 @@ const pokemon2000 = [
 //     }
 // }
 
+
+// const applyPillBgColor2 = () => {
+//     const val = $('.pill');
+//     for (let i = 0; i < val.length; i++) {
+//         const pill = val.eq(i);
+//         switch (val.eq(i)[0].innerText) {
+//             case 'Grass': pill.addClass('background-color-grass'); break;
+//             case 'Poison': pill.addClass('background-color-poison'); break;
+//             case 'Fire': pill.addClass('background-color-fire'); break;
+//             case 'Water': pill.addClass('background-color-water'); break;
+//             case 'Flying': pill.addClass('background-color-flying'); break;
+//             case 'Bug': pill.addClass('background-color-bug'); break;
+//             case 'Normal': pill.addClass('background-color-normal'); break;
+//             case 'Electric': pill.addClass('background-color-electric'); break;
+//             case 'Ground': pill.addClass('background-color-ground'); break;
+//             case 'Fairy': pill.addClass('background-color-fairy'); break;
+//             case 'Fighting': pill.addClass('background-color-fighting'); break;
+//             case 'Psychic': pill.addClass('background-color-psychic'); break;
+//             case 'Steel': pill.addClass('background-color-steel'); break;
+//             case 'Ice': pill.addClass('background-color-ice'); break;
+//             case 'Ghost': pill.addClass('background-color-ghost'); break;
+//             case 'Rock': pill.addClass('background-color-rock'); break;
+//             case 'Dragon': pill.addClass('background-color-dragon'); break;
+//             case 'Dark': pill.addClass('background-color-dark'); break;
+//         }
+//     }
+// }
 
