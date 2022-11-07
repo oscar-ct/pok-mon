@@ -215,7 +215,7 @@ $('#pokemon').on('input', function (e) {
     const selectVal = $(".select option:selected").val();
 
     if (genVal === undefined && selectVal === 'Select Here') {
-        alert('Please first select a pokemon generation');
+        alert('Select a pokemon generation');
         $('#pokemon').val('');
     } else {
         // $('.gen:checked').prop('checked', false);
