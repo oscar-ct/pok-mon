@@ -481,6 +481,8 @@ body {
     }
     #output {
         margin: 0;
+        background-repeat: repeat-y;
+        background-size: auto;
     }
     .search-box-container {
         width: 100%;
