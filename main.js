@@ -19,7 +19,31 @@ $(document).ready(function() {
     $(".select option:selected").prop('selected', false);
     $('#pokemon').val('');
 });
+
 $(window).resize(function() {
+    const genVal = $('.gen:checked').val();
+    const selectVal = $(".select option:selected").val();
+    // console.log(genVal);
+    // console.log(selectVal);
+    if ($(window).width() < 880 && genVal !== undefined && genVal !== selectVal) {
+        console.log(genVal);
+        const select = $(".select option");
+        for (let i = 0; i < select.length; i++) {
+            const opt = $('option')[i];
+            if (opt.value === genVal) {
+                $(opt).prop('selected', true);
+            }
+        }
+    } else if ($(window).width() > 880 && selectVal !== 'Select Here' && genVal !== selectVal) {
+        console.log(selectVal);
+        const gen = $('.gen');
+        for (let i = 0; i < gen.length; i++) {
+            const sel = gen[i];
+            if (sel.value === selectVal) {
+                $(sel).prop('checked', true);
+            }
+        }
+    }
     activatePokeBall();
 });
     // if ($(window).width() < 700) {
