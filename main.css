@@ -307,6 +307,7 @@ body {
     color: white;
     /*text-shadow: 0 1px 0 #CACACA;*/
     border-radius: 0.2em;
+    border: solid 2px black;
 }
 .list-choice:hover .list-choice-title {
     border-radius:0.2em 0.2em 0 0;
@@ -328,7 +329,7 @@ body {
     position: absolute;
     top: 0;
     /*padding-top: 2.1em;*/
-    padding-top: 3.11em;
+    padding-top: 3.5em;
     box-sizing: border-box;
     width: 100%;
     overflow: hidden;
@@ -355,6 +356,7 @@ body {
     top: 0;
     border-radius: 0.2em;
     padding: 0.87em 1em;
+    border: solid 2px black;
 }
 .list-choice:hover input[type="radio"]:checked + span {
     border-radius: 0;
@@ -415,6 +417,7 @@ body {
     margin: 30px 0 20px 0;
 }
 .back {
+    color: #fc2406;
     cursor: pointer;
     font-size: 22px;
     font-style: italic;
