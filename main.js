@@ -211,20 +211,28 @@ const mapLocalPokemon = () => {
 // });
 
 $('#pokemon').on('input', function (e) {
-    // $('.gen:checked').prop('checked', false);
-    // console.log(localStoredPokemon);
-    const searchTerm = $('#pokemon').val();
-    console.log(searchTerm);
-    if (searchTerm !== '') {
-        const searchResults = localStoredPokemon[0].filter(function (x) {
-            if (namesMatch(x.name, searchTerm))
-                return x.name;
-        });
-        console.log(searchResults);
-        $('#output').html(searchResults.map(mapLocalPokemonToDOM));
-        // applyPillBgColor2();
+    const genVal = $('.gen:checked').val();
+    const selectVal = $(".select option:selected").val();
+
+    if (genVal === undefined && selectVal === 'Select Here') {
+        alert('Please first select a pokemon generation');
+        $('#pokemon').val('');
     } else {
-        $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+        // $('.gen:checked').prop('checked', false);
+        // console.log(localStoredPokemon);
+        const searchTerm = $('#pokemon').val();
+        console.log(searchTerm);
+        if (searchTerm !== '') {
+            const searchResults = localStoredPokemon[0].filter(function (x) {
+                if (namesMatch(x.name, searchTerm))
+                    return x.name;
+            });
+            console.log(searchResults);
+            $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+            // applyPillBgColor2();
+        } else {
+            $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+        }
     }
 });
 
@@ -271,35 +279,35 @@ const runPokemon = (val) => {
     switch (val) {
         case '1':
             viewPokemon(1, 152);
-            placeholder.attr('placeholder', 'Search Gen 1 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 1 Pokémon')
             break;
         case '2':
             viewPokemon(152, 252);
-            placeholder.attr('placeholder', 'Search Gen 2 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 2 Pokémon')
             break;
         case '3':
             viewPokemon(252, 387);
-            placeholder.attr('placeholder', 'Search Gen 3 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 3 Pokémon')
             break;
         case '4':
             viewPokemon(387, 494);
-            placeholder.attr('placeholder', 'Search Gen 4 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 4 Pokémon')
             break;
         case '5':
             viewPokemon(494, 650);
-            placeholder.attr('placeholder', 'Search Gen 5 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 5 Pokémon')
             break;
         case '6':
             viewPokemon(650, 722);
-            placeholder.attr('placeholder', 'Search Gen 6 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 6 Pokémon')
             break;
         case '7':
             viewPokemon(722, 810);
-            placeholder.attr('placeholder', 'Search Gen 7 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 7 Pokémon')
             break;
         case '8':
             viewPokemon(810, 906);
-            placeholder.attr('placeholder', 'Search Gen 8 Pokémon')
+            placeholder.attr('placeholder', 'Search: Gen 8 Pokémon')
             break;
     }
 }
