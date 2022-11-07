@@ -154,7 +154,6 @@ const mapLocalPokemon = () => {
 // });
 
 
-
 // $('#pokemon').on('input change', function (e) {
 //     // $('.gen:checked').prop('checked', false);
 //     // console.log(localStoredPokemon);
@@ -168,30 +167,41 @@ const mapLocalPokemon = () => {
 //     // applyPillBgColor2();
 // });
 
-$('#search-icon-container').click(function () {
+$('#pokemon').on('input', function (e) {
+    // $('.gen:checked').prop('checked', false);
+    // console.log(localStoredPokemon);
     const searchTerm = $('#pokemon').val();
-    const pokemon = localStoredPokemon[0];
     console.log(searchTerm);
-    console.log(pokemon);
-    const searchResults = pokemon.filter(function (x) {
-        if (includes(x.name, searchTerm))
-        return x.name;
-    });
-    console.log(searchResults);
-    $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+    if (searchTerm !== '') {
+        const searchResults = localStoredPokemon[0].filter(function (x) {
+            if (namesMatch(x.name, searchTerm))
+                return x.name;
+        });
+        console.log(searchResults);
+        $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+        // applyPillBgColor2();
+    } else {
+        $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+    }
 });
+
 
 // $("#optionselect").change(function(){
 //     Var value =  $(“# optionselect option: selected”);
 //     alert(value.text());
 //
 
-const includes = (str, searchTerm) => {
-    const arr = str.split('');
+const namesMatch = (str, searchTerm) => {
+    const strArr = str.split('');
+    let newArray = [];
     let count = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i].toLowerCase() === searchTerm.toLowerCase()) {
-            count++
+    for (let i = 1; i < strArr.length + 1; i++) {
+        let word = str.slice(0, i);
+        newArray.push(word.toLowerCase())
+    }
+    for (let j = 0; j < newArray.length; j++) {
+        if (searchTerm.toLowerCase() === newArray[j]) {
+            count++;
         }
     }
     return count !== 0;
