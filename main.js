@@ -1,4 +1,11 @@
 let localStoredPokemon = '';
+let windowCoords = '';
+
+
+const scrollTop = () => {
+  $(window).scrollTop(0);
+}
+
 
 $(".poke-btn").click(function(){
     $(".input").toggleClass("active").focus();
@@ -128,6 +135,7 @@ const viewPokemon = (pokemon, pokemon2) => {
 
 
 const searchPokemon = (pokemon) => {
+    windowCoords = document.documentElement.scrollTop;
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
         console.log(data);
         $('#output').html(mapApiPokemonToDOM(data));
@@ -136,7 +144,7 @@ const searchPokemon = (pokemon) => {
 
       // $('.gen:checked').prop('checked', false);
     }).then(function () {
-        $("#output").scrollTop(0);
+        $(window).scrollTop(0);
         // applyPillBgColor2();
     });
 }
@@ -145,6 +153,7 @@ const mapLocalPokemon = () => {
     const searchTerm = $('#pokemon').val();
     if (searchTerm === '') {
         $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+        $(window).scrollTop(windowCoords);
         // applyPillBgColor2();
     } else {
         const searchResults = localStoredPokemon[0].filter(function (x) {
@@ -152,6 +161,7 @@ const mapLocalPokemon = () => {
                 return x.name;
         });
         $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+        $(window).scrollTop(windowCoords);
     }
 }
 
@@ -236,7 +246,7 @@ const runPokemon = (val) => {
     const placeholder = $('#pokemon');
     switch (val) {
         case '1':
-            viewPokemon(1, 51);
+            viewPokemon(1, 151);
             placeholder.attr('placeholder', 'Search Gen 1 Pokémon')
             break;
         case '2':
