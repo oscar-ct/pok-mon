@@ -7,6 +7,8 @@ const scrollTop = () => {
 }
 
 
+
+
 $(".poke-btn").click(function(){
     if ($('#pokemon').attr('placeholder') === 'Please select a generation') {
         $(".input").toggleClass("active");
@@ -173,6 +175,13 @@ const searchPokemon = (pokemon) => {
       // $('.gen:checked').prop('checked', false);
     }).then(function () {
         $(window).scrollTop(0);
+        const backBtn = $('#sm-back-container');
+        backBtn.mouseenter(function () {
+            $(this).children().css('color', 'rebeccapurple');
+        });
+        backBtn.mouseleave(function () {
+            $(this).children().css('color', 'red');
+        });
         // applyPillBgColor2();
     });
 }

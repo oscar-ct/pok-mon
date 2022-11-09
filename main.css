@@ -424,9 +424,9 @@ body {
     justify-content: center;
     align-items: center;
 }
-#sm-back-container>*:hover {
-    color: rebeccapurple;!important;
-}
+/*#sm-back-container>*:hover {*/
+/*    color: rebeccapurple;!important;*/
+/*}*/
 /*.back-container>:hover {*/
 /*    color: rebeccapurple;*/
 /*}*/
