@@ -8,7 +8,11 @@ const scrollTop = () => {
 
 
 $(".poke-btn").click(function(){
-    $(".input").toggleClass("active").focus();
+    if ($('#pokemon').attr('placeholder') === 'Please select a generation') {
+        $(".input").toggleClass("active");
+    } else {
+        $(".input").toggleClass("active").focus();
+    }
     $(this).toggleClass("animate");
     $('#poke-ball').toggleClass('bounce');
     $(".input").val("");
@@ -100,7 +104,7 @@ const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="
 </div>`;
 
 const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${pokemon.id}">
-    <div class="back-container"><span class="back exo" onclick="mapLocalPokemon();">&lt;&lt;back</span></div>
+    <div class="back-container" onclick="mapLocalPokemon();"><div id="sm-back-container"><i id="back-icon" class="fa-solid fa-circle-left"></i><span class="back exo">back</span></div></div>
     <div id="pokemon-stats-container">
         <div id="lg-img-container"><img id="lg-img" src="${checkingPokemonImg(pokemon)}"></div>
         <div id="pokemon-details-container">
@@ -248,7 +252,7 @@ const namesMatch = (str, searchTerm) => {
     let count = 0;
     for (let i = 1; i < strArr.length + 1; i++) {
         let word = str.slice(0, i);
-        newArray.push(word.toLowerCase())
+        newArray.push(word.toLowerCase());
     }
     for (let j = 0; j < newArray.length; j++) {
         if (searchTerm.toLowerCase() === newArray[j]) {
