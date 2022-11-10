@@ -1,5 +1,6 @@
 let localStoredPokemon = '';
 let windowCoords = '';
+let currentType = '';
 
 
 const scrollTop = () => {
@@ -84,9 +85,9 @@ const pokemonTypes = (arr) => {
 const pillPokemonTypes = (str) => {
     const arr = str.split(' ');
     if (arr.length === 1) {
-        return `<span class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span>`;
+        return `<span onclick="loadTypes('${arr[0]}'); $(window).scrollTop(0);" class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span>`;
     } else if (arr.length === 2) {
-        return `<span class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span><span class="pill" style="${applyPillBgColor3(arr[1])}">${arr[1]}</span>`;
+        return `<span onclick="loadTypes('${arr[0]}'); $(window).scrollTop(0); " class="pill" style="${applyPillBgColor3(arr[0])}">${arr[0]}</span><span onclick="loadTypes('${arr[1]}'); $(window).scrollTop(0); " class="pill" style="${applyPillBgColor3(arr[1])}">${arr[1]}</span>`;
     }
 }
 
@@ -98,15 +99,15 @@ const pokemonHeight = (height) => {
 }
 
 
-const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer;">
-    <div class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprites.other["official-artwork"].front_default}"></div>
+const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card">
+    <div onclick="searchPokemon(${pokemon.id})" class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprites.other["official-artwork"].front_default}" style="cursor: pointer"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
 </div>`;
 
 const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${pokemon.id}">
-    <div class="back-container" onclick="mapLocalPokemon();"><div id="sm-back-container"><i id="back-icon" class="fa-solid fa-circle-left"></i><span class="back exo">back</span></div></div>
+    <div class="back-container" onclick="mapLocalPokemon();"><div id="sm-back-container"><i class="fa-solid fa-circle-left sm-icon"></i><span class="back exo">back</span></div></div>
     <div id="pokemon-stats-container">
         <div id="lg-img-container"><img id="lg-img" src="${checkingPokemonImg(pokemon)}"></div>
         <div id="pokemon-details-container">
@@ -120,8 +121,8 @@ const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${
     </div>
 </div>`;
 
-const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card" onclick="searchPokemon(${pokemon.id})" style="cursor: pointer">
-    <div class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprite}"></div>
+const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card">
+    <div onclick="searchPokemon(${pokemon.id})" class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprite}" style="cursor: pointer"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemon.type)}</div>
@@ -139,6 +140,7 @@ const checkingPokemonImg = (pokemon) => {
 }
 
 const viewPokemon = (pokemon, pokemon2) => {
+    $('#view-all-btn-container').css('display', 'none');
     let promises = [];
     for (let i = pokemon; i < pokemon2; i++) {
         promises.push(fetch("https://pokeapi.co/api/v2/pokemon/" + i).then(resp => resp.json()));
@@ -159,13 +161,17 @@ const viewPokemon = (pokemon, pokemon2) => {
         // console.log(localStoredPokemon);
     });
 
-
 }
+
+
+
+
 
 
 
 const searchPokemon = (pokemon) => {
     windowCoords = document.documentElement.scrollTop;
+    $('#view-all-btn-container').css('display', 'none');
     $.ajax("https://pokeapi.co/api/v2/pokemon/" + pokemon).done(function (data) {
         console.log(data);
         $('#output').html(mapApiPokemonToDOM(data));
@@ -176,28 +182,28 @@ const searchPokemon = (pokemon) => {
     }).then(function () {
         $(window).scrollTop(0);
         const backBtn = $('#sm-back-container');
-        backBtn.mouseenter(function () {
-            $(this).children().css('color', 'rebeccapurple');
-        });
-        backBtn.mouseleave(function () {
-            $(this).children().css('color', 'red');
-        });
+        mouseEvent(backBtn);
+        // currentType = '';
         // applyPillBgColor2();
     });
 }
 
 const mapLocalPokemon = () => {
     const searchTerm = $('#pokemon').val();
-    if (searchTerm === '') {
+    if (searchTerm === '' && currentType === '') {
         $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
         $(window).scrollTop(windowCoords);
         // applyPillBgColor2();
-    } else {
+    } else if (searchTerm !== '' && currentType === '') {
         const searchResults = localStoredPokemon[0].filter(function (x) {
             if (namesMatch(x.name, searchTerm))
                 return x.name;
         });
         $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+        $(window).scrollTop(windowCoords);
+    } else if (currentType !== '') {
+        loadTypes(currentType);
+        $('#view-all-btn-container').css('display', 'flex');
         $(window).scrollTop(windowCoords);
     }
 }
@@ -224,6 +230,8 @@ const mapLocalPokemon = () => {
 // });
 
 $('#pokemon').on('input', function (e) {
+    currentType = '';
+    $('#view-all-btn-container').css('display', 'none');
     const genVal = $('.gen:checked').val();
     const selectVal = $(".select option:selected").val();
 
@@ -234,11 +242,10 @@ $('#pokemon').on('input', function (e) {
         // $('.gen:checked').prop('checked', false);
         // console.log(localStoredPokemon);
         const searchTerm = $('#pokemon').val();
-        console.log(searchTerm);
         if (searchTerm !== '') {
             const searchResults = localStoredPokemon[0].filter(function (x) {
                 if (namesMatch(x.name, searchTerm))
-                    return x.name;
+                    return x;
             });
             console.log(searchResults);
             $('#output').html(searchResults.map(mapLocalPokemonToDOM));
@@ -248,6 +255,43 @@ $('#pokemon').on('input', function (e) {
         }
     }
 });
+
+
+const loadTypes = (pokemonTypeString) => {
+    currentType = pokemonTypeString;
+    const searchResults = localStoredPokemon[0].filter(function (pokemon) {
+        const localPokemonTypeArray = pokemon.type.split(' ');
+
+        for (let i = 0; i < localPokemonTypeArray.length; i++) {
+            if (localPokemonTypeArray[i].toLowerCase() === pokemonTypeString.toLowerCase()) {
+                console.log(pokemon);
+                return pokemon;
+            }
+        }
+    });
+    const viewAllBtn = $('#view-all-btn-container');
+    viewAllBtn.css('display', 'flex');
+    $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+    $(window).scrollTop(windowCoords);
+    mouseEvent(viewAllBtn);
+    $('#pokemon').val('');
+}
+
+$('#view-all-btn').click(function () {
+    $('#view-all-btn-container').css('display', 'none');
+    $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
+    currentType = '';
+
+});
+
+const mouseEvent = (elem) => {
+    elem.mouseenter(function () {
+        $(this).children().css('color', 'rebeccapurple');
+    });
+    elem.mouseleave(function () {
+        $(this).children().css('color', 'red');
+    });
+}
 
 
 // $("#optionselect").change(function(){

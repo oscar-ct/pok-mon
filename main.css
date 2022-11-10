@@ -2,6 +2,17 @@
     display: none;
 }
 
+#view-all-btn-container {
+    padding: 50px 0 0 0;
+}
+
+#view-all-btn {
+    cursor: pointer;
+    color: #fc2406;
+    font-size: 22px;
+}
+
+
 .sm-img {
     background-color: whitesmoke;
     border-radius: 6px;
@@ -157,21 +168,22 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     margin: 0 5px 0 5px;
-    padding: 0 0 100px 0;
+    padding: 20px 0 100px 0;
     /*overflow:hidden!important;*/
     /*overflow-y: scroll!important;*/
     /*height: 500px;*/
+
+}
+.output-container {
+    border-top: solid black 1px;
+    /*overflow:hidden!important;*/
+    /*overflow-y: scroll!important;*/
     background-image: url("container_bg.png")!important;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
     min-height: 100%;
-}
-.output-container {
-    border-top: solid black 1px;
-    /*overflow:hidden!important;*/
-    /*overflow-y: scroll!important;*/
 }
 .search-options-container {
     padding-bottom: 15px;
@@ -317,7 +329,7 @@ body {
 }
 .list-choice input[type="radio"] + span {
     color: white;
-    background: #2c33be;
+    background: #29313a;
     padding: 0.87em 1em;
     display: block;
     text-align: center;
@@ -407,6 +419,10 @@ body {
 }
 .pill-container {
     height: 25px;
+    cursor: pointer;
+}
+.pill-container>*:hover {
+    opacity: 70%;
 }
 .stat {
     margin-right: 15px;
@@ -430,7 +446,7 @@ body {
 /*.back-container>:hover {*/
 /*    color: rebeccapurple;*/
 /*}*/
-#back-icon {
+.sm-icon {
     font-size: 26px;
     color: red;
     margin-right: 5px
@@ -503,7 +519,7 @@ body {
     #lg-img-container {
         max-width: 300px;
     }
-    #output {
+    #output-container {
         margin: 0;
         background-repeat: repeat-y;
         background-size: auto;
