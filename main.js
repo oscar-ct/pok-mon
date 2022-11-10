@@ -294,7 +294,7 @@ const mouseEvent = (elem) => {
         $(this).children().css('color', 'rebeccapurple');
     });
     elem.mouseleave(function () {
-        $(this).children().css('color', 'red');
+        $(this).children().css('color', '#29313a');
     });
 }
 
