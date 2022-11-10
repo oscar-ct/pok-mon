@@ -100,7 +100,7 @@ const pokemonHeight = (height) => {
 
 
 const mapApiPokemonListToDOM = (pokemon) => `<div class="pokemon-card">
-    <div onclick="searchPokemon(${pokemon.id})" class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprites.other["official-artwork"].front_default}" style="cursor: pointer"></div>
+    <div onclick="searchPokemon(${pokemon.id})" class="sm-img-container"><img class="sm-img" src="${pokemon.sprites.other["official-artwork"].front_default}" style="cursor: pointer"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemonTypes(pokemon.types))}</div>
@@ -122,7 +122,7 @@ const mapApiPokemonToDOM = (pokemon) => `<div id="lg-main-container" data-id="${
 </div>`;
 
 const mapLocalPokemonToDOM = (pokemon) => `<div class="pokemon-card">
-    <div onclick="searchPokemon(${pokemon.id})" class="mx-2 my-2"><img class="sm-img" src="${pokemon.sprite}" style="cursor: pointer"></div>
+    <div onclick="searchPokemon(${pokemon.id})"  class="sm-img-container"><img class="sm-img" src="${pokemon.sprite}" style="cursor: pointer"></div>
     <div><span class="pokemon-id">#${pokemon.id}</span></div>
     <div class="sm-poke-name"><span class="exo">${pokemonName(pokemon.name)}</span></div>
     <div class="pill-container">${pillPokemonTypes(pokemon.type)}</div>
@@ -259,25 +259,30 @@ $('#pokemon').on('input', function (e) {
 
 const loadTypes = (pokemonTypeString) => {
     currentType = pokemonTypeString;
+
     const searchResults = localStoredPokemon[0].filter(function (pokemon) {
         const localPokemonTypeArray = pokemon.type.split(' ');
 
         for (let i = 0; i < localPokemonTypeArray.length; i++) {
             if (localPokemonTypeArray[i].toLowerCase() === pokemonTypeString.toLowerCase()) {
+
                 console.log(pokemon);
                 return pokemon;
             }
         }
     });
-    const viewAllBtn = $('#view-all-btn-container');
-    viewAllBtn.css('display', 'flex');
-    $('#output').html(searchResults.map(mapLocalPokemonToDOM));
+    const viewAllBtnContainer = $('#view-all-btn-container');
+    const viewAll = $('#view-all');
+    viewAllBtnContainer.css('display', 'flex');
+    const mappedData = searchResults.map(mapLocalPokemonToDOM)
+    $('#output').html(mappedData);
     $(window).scrollTop(windowCoords);
-    mouseEvent(viewAllBtn);
+    mouseEvent(viewAll);
     $('#pokemon').val('');
+    applyTypeBgColor(mappedData, pokemonTypeString);
 }
 
-$('#view-all-btn').click(function () {
+$('#view-all').click(function () {
     $('#view-all-btn-container').css('display', 'none');
     $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
     currentType = '';
@@ -440,30 +445,31 @@ const pokemon2000 = [
 // }
 
 
-// const applyPillBgColor2 = () => {
-//     const val = $('.pill');
-//     for (let i = 0; i < val.length; i++) {
-//         const pill = val.eq(i);
-//         switch (val.eq(i)[0].innerText) {
-//             case 'Grass': pill.addClass('background-color-grass'); break;
-//             case 'Poison': pill.addClass('background-color-poison'); break;
-//             case 'Fire': pill.addClass('background-color-fire'); break;
-//             case 'Water': pill.addClass('background-color-water'); break;
-//             case 'Flying': pill.addClass('background-color-flying'); break;
-//             case 'Bug': pill.addClass('background-color-bug'); break;
-//             case 'Normal': pill.addClass('background-color-normal'); break;
-//             case 'Electric': pill.addClass('background-color-electric'); break;
-//             case 'Ground': pill.addClass('background-color-ground'); break;
-//             case 'Fairy': pill.addClass('background-color-fairy'); break;
-//             case 'Fighting': pill.addClass('background-color-fighting'); break;
-//             case 'Psychic': pill.addClass('background-color-psychic'); break;
-//             case 'Steel': pill.addClass('background-color-steel'); break;
-//             case 'Ice': pill.addClass('background-color-ice'); break;
-//             case 'Ghost': pill.addClass('background-color-ghost'); break;
-//             case 'Rock': pill.addClass('background-color-rock'); break;
-//             case 'Dragon': pill.addClass('background-color-dragon'); break;
-//             case 'Dark': pill.addClass('background-color-dark'); break;
-//         }
-//     }
-// }
+const applyTypeBgColor = (data, pokemonTypeString) => {
+    // console.log(data);
+    const val = $('.sm-img-container');
+    for (let i = 0; i < val.length; i++) {
+        const pill = val.eq(i);
+        switch (pokemonTypeString) {
+            case 'Grass': pill.addClass('background-color-grass'); break;
+            case 'Poison': pill.addClass('background-color-poison'); break;
+            case 'Fire': pill.addClass('background-color-fire'); break;
+            case 'Water': pill.addClass('background-color-water'); break;
+            case 'Flying': pill.addClass('background-color-flying'); break;
+            case 'Bug': pill.addClass('background-color-bug'); break;
+            case 'Normal': pill.addClass('background-color-normal'); break;
+            case 'Electric': pill.addClass('background-color-electric'); break;
+            case 'Ground': pill.addClass('background-color-ground'); break;
+            case 'Fairy': pill.addClass('background-color-fairy'); break;
+            case 'Fighting': pill.addClass('background-color-fighting'); break;
+            case 'Psychic': pill.addClass('background-color-psychic'); break;
+            case 'Steel': pill.addClass('background-color-steel'); break;
+            case 'Ice': pill.addClass('background-color-ice'); break;
+            case 'Ghost': pill.addClass('background-color-ghost'); break;
+            case 'Rock': pill.addClass('background-color-rock'); break;
+            case 'Dragon': pill.addClass('background-color-dragon'); break;
+            case 'Dark': pill.addClass('background-color-dark'); break;
+        }
+    }
+}
 
