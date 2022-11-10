@@ -519,7 +519,7 @@ body {
     #lg-img-container {
         max-width: 300px;
     }
-    #output-container {
+    .output-container {
         margin: 0;
         background-repeat: repeat-y;
         background-size: auto;
