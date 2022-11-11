@@ -1,3 +1,6 @@
+#intro-pokeball-container {
+    display: none;
+}
 #search-icon-container {
     display: none;
 }
@@ -35,7 +38,7 @@
 /*    display: none;*/
 /*}*/
 #intro {
-    margin: 50px;
+    margin:  25px 50px 50px 50px;
     font-family: 'Exo', sans-serif;
     font-size: 20px;
 }
@@ -488,6 +491,15 @@ body {
 
 
 @media screen and (max-width: 55em) {
+    #intro-pokeball-container {
+        display: revert;
+    }
+    #intro {
+        margin-top: 0px;
+    }
+    #intro-pokeball {
+        height: 65px;
+    }
     #search-icon-container {
         display: none;
         justify-content: center;
