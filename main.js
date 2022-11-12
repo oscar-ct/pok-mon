@@ -299,6 +299,14 @@ const mouseEvent = (elem) => {
 }
 
 
+$('#intro-pokeball-container').click(function () {
+    const userInput = confirm(`View my favorite Pokémon?`);
+    if (userInput) {
+
+    }
+});
+
+
 // $("#optionselect").change(function(){
 //     Var value =  $(“# optionselect option: selected”);
 //     alert(value.text());
@@ -447,28 +455,28 @@ const pokemon2000 = [
 
 const applyTypeBgColor = (data, pokemonTypeString) => {
     // console.log(data);
-    const val = $('.sm-img-container');
+    const smImages = $('.sm-img-container');
     for (let i = 0; i < val.length; i++) {
-        const pill = val.eq(i);
+        const img = smImages.eq(i);
         switch (pokemonTypeString) {
-            case 'Grass': pill.addClass('background-color-grass'); break;
-            case 'Poison': pill.addClass('background-color-poison'); break;
-            case 'Fire': pill.addClass('background-color-fire'); break;
-            case 'Water': pill.addClass('background-color-water'); break;
-            case 'Flying': pill.addClass('background-color-flying'); break;
-            case 'Bug': pill.addClass('background-color-bug'); break;
-            case 'Normal': pill.addClass('background-color-normal'); break;
-            case 'Electric': pill.addClass('background-color-electric'); break;
-            case 'Ground': pill.addClass('background-color-ground'); break;
-            case 'Fairy': pill.addClass('background-color-fairy'); break;
-            case 'Fighting': pill.addClass('background-color-fighting'); break;
-            case 'Psychic': pill.addClass('background-color-psychic'); break;
-            case 'Steel': pill.addClass('background-color-steel'); break;
-            case 'Ice': pill.addClass('background-color-ice'); break;
-            case 'Ghost': pill.addClass('background-color-ghost'); break;
-            case 'Rock': pill.addClass('background-color-rock'); break;
-            case 'Dragon': pill.addClass('background-color-dragon'); break;
-            case 'Dark': pill.addClass('background-color-dark'); break;
+            case 'Grass': img.addClass('background-color-grass'); break;
+            case 'Poison': img.addClass('background-color-poison'); break;
+            case 'Fire': img.addClass('background-color-fire'); break;
+            case 'Water': img.addClass('background-color-water'); break;
+            case 'Flying': img.addClass('background-color-flying'); break;
+            case 'Bug': img.addClass('background-color-bug'); break;
+            case 'Normal': img.addClass('background-color-normal'); break;
+            case 'Electric': img.addClass('background-color-electric'); break;
+            case 'Ground': img.addClass('background-color-ground'); break;
+            case 'Fairy': img.addClass('background-color-fairy'); break;
+            case 'Fighting': img.addClass('background-color-fighting'); break;
+            case 'Psychic': img.addClass('background-color-psychic'); break;
+            case 'Steel': img.addClass('background-color-steel'); break;
+            case 'Ice': img.addClass('background-color-ice'); break;
+            case 'Ghost': img.addClass('background-color-ghost'); break;
+            case 'Rock': img.addClass('background-color-rock'); break;
+            case 'Dragon': img.addClass('background-color-dragon'); break;
+            case 'Dark': img.addClass('background-color-dark'); break;
         }
     }
 }
