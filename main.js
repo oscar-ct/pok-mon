@@ -204,7 +204,7 @@ const mapLocalPokemon = () => {
         });
         $('#output').html(searchResults.map(mapLocalPokemonToDOM));
         $(window).scrollTop(windowCoords);
-    } else if (currentType !== '') {
+    } else if (currentType !== '' && searchTerm === '' && localStoredPokemon !== '') {
         loadTypes(currentType);
         $('#view-all-btn-container').css('display', 'flex');
         $(window).scrollTop(windowCoords);
@@ -263,28 +263,29 @@ $('#pokemon').on('input', function (e) {
 
 
 const loadTypes = (pokemonTypeString) => {
-    currentType = pokemonTypeString;
+    if (localStoredPokemon !== '') {
+        currentType = pokemonTypeString;
+        const searchResults = localStoredPokemon[0].filter(function (pokemon) {
+            const localPokemonTypeArray = pokemon.type.split(' ');
 
-    const searchResults = localStoredPokemon[0].filter(function (pokemon) {
-        const localPokemonTypeArray = pokemon.type.split(' ');
+            for (let i = 0; i < localPokemonTypeArray.length; i++) {
+                if (localPokemonTypeArray[i].toLowerCase() === pokemonTypeString.toLowerCase()) {
 
-        for (let i = 0; i < localPokemonTypeArray.length; i++) {
-            if (localPokemonTypeArray[i].toLowerCase() === pokemonTypeString.toLowerCase()) {
-
-                console.log(pokemon);
-                return pokemon;
+                    console.log(pokemon);
+                    return pokemon;
+                }
             }
-        }
-    });
-    const viewAllBtnContainer = $('#view-all-btn-container');
-    const viewAll = $('#view-all');
-    viewAllBtnContainer.css('display', 'flex');
-    const mappedData = searchResults.map(mapLocalPokemonToDOM)
-    $('#output').html(mappedData);
-    $(window).scrollTop(windowCoords);
-    mouseEvent(viewAll);
-    $('#pokemon').val('');
-    applyTypeBgColor(mappedData, pokemonTypeString);
+        });
+        const viewAllBtnContainer = $('#view-all-btn-container');
+        const viewAll = $('#view-all');
+        viewAllBtnContainer.css('display', 'flex');
+        const mappedData = searchResults.map(mapLocalPokemonToDOM)
+        $('#output').html(mappedData);
+        $(window).scrollTop(windowCoords);
+        mouseEvent(viewAll);
+        $('#pokemon').val('');
+        applyTypeBgColor(mappedData, pokemonTypeString);
+    }
 }
 
 $('#view-all').click(function () {
