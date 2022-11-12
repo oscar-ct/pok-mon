@@ -7,7 +7,10 @@ const scrollTop = () => {
   $(window).scrollTop(0);
 }
 
-
+const getRandomInt = (max) => {
+    const num = Math.floor(Math.random() * max + 1);
+    return num.toString()
+}
 
 
 $(".poke-btn").click(function(){
@@ -304,7 +307,7 @@ const mouseEvent = (elem) => {
 $('#intro-pokeball-container').click(function () {
     const userInput = confirm(`Hi there, would you like to view my favorite Pokémon?`);
     if (userInput) {
-        searchPokemon('132');
+        searchPokemon(getRandomInt(152));
     }
 });
 
@@ -458,7 +461,7 @@ const pokemon2000 = [
 const applyTypeBgColor = (data, pokemonTypeString) => {
     // console.log(data);
     const smImages = $('.sm-img-container');
-    for (let i = 0; i < val.length; i++) {
+    for (let i = 0; i < smImages.length; i++) {
         const img = smImages.eq(i);
         switch (pokemonTypeString) {
             case 'Grass': img.addClass('background-color-grass'); break;
