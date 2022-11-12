@@ -190,11 +190,11 @@ const searchPokemon = (pokemon) => {
 
 const mapLocalPokemon = () => {
     const searchTerm = $('#pokemon').val();
-    if (searchTerm === '' && currentType === '') {
+    if (searchTerm === '' && currentType === '' && localStoredPokemon !== '') {
         $('#output').html(localStoredPokemon[0].map(mapLocalPokemonToDOM));
         $(window).scrollTop(windowCoords);
         // applyPillBgColor2();
-    } else if (searchTerm !== '' && currentType === '') {
+    } else if (searchTerm !== '' && currentType === '' && localStoredPokemon !== '') {
         const searchResults = localStoredPokemon[0].filter(function (x) {
             if (namesMatch(x.name, searchTerm))
                 return x.name;
@@ -205,6 +205,8 @@ const mapLocalPokemon = () => {
         loadTypes(currentType);
         $('#view-all-btn-container').css('display', 'flex');
         $(window).scrollTop(windowCoords);
+    } else if (localStoredPokemon === '') {
+        windowReload();
     }
 }
 
@@ -300,9 +302,9 @@ const mouseEvent = (elem) => {
 
 
 $('#intro-pokeball-container').click(function () {
-    const userInput = confirm(`View my favorite Pokémon?`);
+    const userInput = confirm(`Hi there, would you like to view my favorite Pokémon?`);
     if (userInput) {
-
+        searchPokemon('132');
     }
 });
 
